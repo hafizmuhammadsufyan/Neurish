@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import MobileNav from '../components/MobileNav';
@@ -6,6 +5,8 @@ import MobileNav from '../components/MobileNav';
 // Pages
 import Landing from '../pages/Landing';
 import Onboarding from '../pages/Onboarding';
+import About from '../pages/About';
+import Contact from '../pages/Contact';
 import Dashboard from '../pages/Dashboard';
 import Learn from '../pages/Learn';
 import Tracker from '../pages/Tracker';
@@ -34,6 +35,8 @@ export default function AppRoutes() {
       {/* Standalone Pages (No App Shell) */}
       <Route path="/" element={<Landing />} />
       <Route path="/onboarding" element={<Onboarding />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
 
       {/* Authenticated Pages (Wrapped in App Shell Layout) */}
       <Route element={<AppLayout />}>
