@@ -1,5 +1,6 @@
-/* --- Premium Startup Landing Page Scoped Stylesheet (V2) --- */
+/* --- Premium Startup Landing Page Scoped Stylesheet --- */
 
+/* Scoped variables under .lp-body wrapper */
 .lp-body {
   --lp-primary: #0d9488;          /* Developmental Teal */
   --lp-primary-hover: #0f766e;
@@ -12,8 +13,8 @@
   
   --lp-bg: #faf9f6;               /* Creamy warm white */
   --lp-surface: #ffffff;
-  --lp-text-primary: #1e293b;     /* Slate 800 */
-  --lp-text-secondary: #475569;   /* Muted Slate */
+  --lp-text-primary: #1e293b;     /* Premium charcoal */
+  --lp-text-secondary: #475569;   /* Muted slate */
   --lp-text-light: #64748b;
   --lp-border: rgba(226, 232, 240, 0.8);
   --lp-border-hover: rgba(203, 213, 225, 1);
@@ -33,7 +34,6 @@
   font-family: 'Inter', -apple-system, sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
-  position: relative;
 }
 
 /* Typography elements */
@@ -199,7 +199,6 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   font-family: inherit;
-  position: relative;
 }
 
 .lp-btn-primary {
@@ -210,6 +209,7 @@
 
 .lp-btn-primary:hover {
   background-color: var(--lp-primary-hover);
+  transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(13, 148, 136, 0.25);
 }
 
@@ -223,6 +223,7 @@
   background-color: var(--lp-bg);
   border-color: var(--lp-border-hover);
   color: var(--lp-text-primary);
+  transform: translateY(-2px);
 }
 
 .lp-btn-text {
@@ -390,21 +391,18 @@
 
 /* --- Section Layouts (Shared) --- */
 .lp-section {
-  padding: 120px 0;
+  padding: 100px 0;
   border-bottom: 1px solid rgba(226, 232, 240, 0.4);
-  position: relative;
-  background-color: var(--lp-bg);
 }
 
 .lp-section-alt {
-  padding: 120px 0;
-  background-color: #f6f5f1;
+  padding: 100px 0;
+  background-color: #f7f6f2;
   border-bottom: 1px solid rgba(226, 232, 240, 0.4);
-  position: relative;
 }
 
 .lp-section-header {
-  max-width: 750px;
+  max-width: 650px;
   margin: 0 auto 60px;
   text-align: center;
 }
@@ -416,599 +414,16 @@
 }
 
 @media (min-width: 768px) {
-  .lp-section-title { font-size: 42px; }
+  .lp-section-title { font-size: 40px; }
 }
 
 .lp-section-subtitle {
-  font-size: 17px;
-  color: var(--lp-text-secondary);
-  line-height: 1.6;
-}
-
-/* --- Narrative Continuity Transitions --- */
-.lp-section-connector {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 80px;
-  background: linear-gradient(to bottom, var(--lp-primary) 0%, rgba(13, 148, 136, 0) 100%);
-  z-index: 20;
-}
-
-.lp-wave-divider {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 60px;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.lp-wave-top {
-  top: -60px;
-}
-
-.lp-wave-bottom {
-  bottom: -60px;
-}
-
-/* --- Immersive Editorial Illustrations --- */
-.lp-illustration-wrapper {
-  background-color: var(--lp-surface);
-  border: 1px solid var(--lp-border);
-  border-radius: var(--lp-radius-lg);
-  padding: 24px;
-  box-shadow: var(--lp-shadow-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  height: 350px;
-  width: 100%;
-}
-
-.lp-illustration-img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.lp-illustration-wrapper:hover .lp-illustration-img {
-  transform: scale(1.05);
-}
-
-/* --- Human-Labeled Scroll Progress Tracker --- */
-.lp-scroll-tracker {
-  position: fixed;
-  right: 32px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: none;
-  flex-direction: column;
-  gap: 16px;
-  z-index: 900;
-  padding: 12px 8px;
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.6);
-  border-radius: 9999px;
-  box-shadow: var(--lp-shadow-sm);
-}
-
-@media (min-width: 1200px) {
-  .lp-scroll-tracker { display: flex; }
-}
-
-.lp-st-dot-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  position: relative;
-}
-
-.lp-st-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--lp-text-light);
-  opacity: 0.5;
-  transition: all 0.3s ease;
-}
-
-.lp-st-label {
-  position: absolute;
-  right: 24px;
-  background-color: var(--lp-text-primary);
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 4px;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateX(10px);
-  transition: all 0.3s ease;
-  pointer-events: none;
-}
-
-.lp-st-dot-container:hover .lp-st-label {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.lp-st-dot-container.active .lp-st-dot {
-  background-color: var(--lp-primary);
-  opacity: 1;
-  transform: scale(1.4);
-}
-
-/* --- Chapter 4: Layered Challenge Cards Upgrade --- */
-.lp-challenge-grid-v2 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-}
-
-@media (min-width: 992px) {
-  .lp-challenge-grid-v2 { grid-template-columns: repeat(2, 1fr); }
-}
-
-.lp-challenge-card-v2 {
-  background-color: var(--lp-surface);
-  border: 1px solid var(--lp-border);
-  border-radius: var(--lp-radius-lg);
-  padding: 40px;
-  box-shadow: var(--lp-shadow-md);
-  position: relative;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-}
-
-.lp-challenge-card-v2:hover {
-  transform: translateY(-4px);
-  border-color: var(--lp-primary);
-  box-shadow: var(--lp-shadow-lg);
-}
-
-.lp-cc-stage-indicator {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 24px;
-}
-
-.lp-cc-indicator-bar {
-  flex: 1;
-  height: 4px;
-  background-color: var(--lp-border);
-  border-radius: 2px;
-  transition: background-color 0.3s ease;
-}
-
-.lp-cc-indicator-bar.active {
-  background-color: var(--lp-primary);
-}
-
-.lp-cc-unfold-container {
-  min-height: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.lp-cc-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.lp-cc-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--lp-text-primary);
-}
-
-.lp-cc-badge-row {
-  margin-bottom: 16px;
-}
-
-.lp-cc-stage-label {
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 4px 10px;
-  border-radius: 4px;
-  display: inline-block;
-}
-
-.lp-cc-stage-label.concern { background-color: #fef2f2; color: #ef4444; }
-.lp-cc-stage-label.why { background-color: #fffbeb; color: #d97706; }
-.lp-cc-stage-label.science { background-color: #eff6ff; color: #2563eb; }
-.lp-cc-stage-label.solution { background-color: var(--lp-primary-light); color: var(--lp-primary); }
-
-.lp-cc-body-text {
-  font-size: 15px;
-  color: var(--lp-text-secondary);
-  line-height: 1.6;
-  flex-grow: 1;
-}
-
-.lp-cc-action-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 24px;
-  border-top: 1px solid rgba(226, 232, 240, 0.6);
-  padding-top: 16px;
-}
-
-.lp-cc-nav-btn {
-  background: none;
-  border: none;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--lp-primary);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  transition: color 0.2s ease;
-}
-
-.lp-cc-nav-btn:hover {
-  color: var(--lp-primary-hover);
-}
-
-.lp-cc-nav-btn:disabled {
-  color: var(--lp-text-light);
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-/* --- Chapter 7: Brain Connections Simulator --- */
-.lp-simulator-card {
-  background: var(--lp-surface);
-  border: 1px solid var(--lp-border);
-  border-radius: var(--lp-radius-lg);
-  padding: 40px;
-  box-shadow: var(--lp-shadow-lg);
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-@media (min-width: 992px) {
-  .lp-simulator-card {
-    flex-direction: row;
-  }
-}
-
-.lp-sim-left {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.lp-sim-action-btn {
-  background-color: var(--lp-bg);
-  border: 1px solid var(--lp-border);
-  border-radius: var(--lp-radius-md);
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  text-align: left;
-}
-
-.lp-sim-action-btn:hover {
-  border-color: var(--lp-primary);
-  background-color: var(--lp-surface);
-  transform: translateX(4px);
-}
-
-.lp-sim-action-btn.active {
-  border-color: var(--lp-primary);
-  background-color: var(--lp-primary-light);
-  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.05);
-}
-
-.lp-sim-action-btn.negative.active {
-  border-color: #ef4444;
-  background-color: #fef2f2;
-}
-
-.lp-sim-action-btn h4 {
-  font-size: 15px;
-  margin-bottom: 2px;
-}
-
-.lp-sim-action-btn p {
-  font-size: 12px;
-  color: var(--lp-text-secondary);
-}
-
-.lp-sim-action-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background-color: var(--lp-surface);
-  border: 1px solid var(--lp-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-
-.lp-sim-action-btn.active .lp-sim-action-icon {
-  background-color: var(--lp-primary);
-  color: white;
-  border-color: var(--lp-primary);
-}
-
-.lp-sim-action-btn.negative.active .lp-sim-action-icon {
-  background-color: #ef4444;
-  color: white;
-  border-color: #ef4444;
-}
-
-.lp-sim-right {
-  flex: 1.3;
-  height: 400px;
-  background-color: #0b0f19; /* Dark visual pod for Three.js nodes to pop */
-  border-radius: var(--lp-radius-lg);
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(226, 232, 240, 0.1);
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
-}
-
-.lp-sim-status-pod {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 10;
-  background: rgba(11, 15, 25, 0.7);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--lp-radius-sm);
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.lp-sim-status-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--lp-primary);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--lp-primary);
-}
-
-.lp-sim-status-dot.screentime {
-  background-color: #ef4444;
-  box-shadow: 0 0 10px #ef4444;
-}
-
-.lp-sim-status-label {
-  font-size: 11px;
-  color: white;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-/* --- Outcomes-Oriented Roadmap Fix --- */
-.lp-outcomes-flow {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-}
-
-@media (min-width: 992px) {
-  .lp-outcomes-flow {
-    grid-template-columns: repeat(6, 1fr);
-    position: relative;
-  }
-  /* Connector bar behind the nodes on desktop */
-  .lp-outcomes-flow::before {
-    content: '';
-    position: absolute;
-    top: 52px;
-    left: 8%;
-    right: 8%;
-    height: 2px;
-    background-color: var(--lp-border);
-    z-index: 1;
-  }
-}
-
-.lp-outcome-card {
-  background-color: var(--lp-surface);
-  border: 1px solid var(--lp-border);
-  border-radius: var(--lp-radius-lg);
-  padding: 24px;
-  text-align: center;
-  box-shadow: var(--lp-shadow-sm);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  z-index: 10;
-}
-
-.lp-outcome-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--lp-primary);
-  box-shadow: var(--lp-shadow-md);
-}
-
-.lp-outcome-circle {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background-color: var(--lp-bg);
-  border: 3px solid var(--lp-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  transition: all 0.3s ease;
-}
-
-.lp-outcome-card:hover .lp-outcome-circle {
-  border-color: var(--lp-primary);
-  background-color: var(--lp-primary-light);
-  color: var(--lp-primary);
-}
-
-.lp-outcome-tag {
-  font-family: 'Outfit', sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--lp-primary);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.lp-outcome-focus {
   font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.lp-outcome-desc {
-  font-size: 12px;
   color: var(--lp-text-secondary);
-}
-
-/* Mobile outcomes tree lines */
-@media (max-width: 991px) {
-  .lp-outcomes-flow {
-    position: relative;
-    padding-left: 20px;
-  }
-  .lp-outcomes-flow::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 48px;
-    width: 2px;
-    background-color: var(--lp-border);
-  }
-  .lp-outcome-card {
-    flex-direction: row;
-    text-align: left;
-    gap: 16px;
-    align-items: center;
-  }
-  .lp-outcome-circle {
-    margin-bottom: 0;
-    flex-shrink: 0;
-  }
-}
-
-/* --- Section: Built For Pakistani Families --- */
-.lp-pak-feature-card {
-  background-color: var(--lp-surface);
-  border: 1px solid var(--lp-border);
-  padding: 32px;
-  border-radius: var(--lp-radius-lg);
-  box-shadow: var(--lp-shadow-sm);
-  display: flex;
-  gap: 20px;
-}
-
-.lp-pak-icon-box {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  background-color: var(--lp-primary-light);
-  color: var(--lp-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.lp-pak-info h4 {
-  font-size: 17px;
-  margin-bottom: 8px;
-}
-
-.lp-pak-info p {
-  font-size: 13px;
-  color: var(--lp-text-secondary);
-}
-
-/* --- Section: Think About Your Childhood --- */
-.lp-reflection-card {
-  background: radial-gradient(circle at 10% 10%, rgba(245, 158, 11, 0.03) 0%, transparent 65%),
-              var(--lp-surface);
-  border: 1px solid var(--lp-border);
-  border-radius: var(--lp-radius-xl);
-  padding: 60px 40px;
-  text-align: center;
-  box-shadow: var(--lp-shadow-premium);
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.lp-reflection-quote {
-  font-family: 'Outfit', sans-serif;
-  font-size: 20px;
-  font-style: italic;
-  color: var(--lp-text-primary);
   line-height: 1.6;
-  margin: 24px 0;
 }
 
-@media (min-width: 768px) {
-  .lp-reflection-quote { font-size: 26px; }
-}
-
-.lp-reflection-author {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--lp-primary);
-}
-
-/* --- Animated Statistics Circular Glow --- */
-.lp-stat-circle-glow {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--lp-primary-glow) 0%, transparent 70%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 24px;
-  border: 2px dashed rgba(13, 148, 136, 0.25);
-  position: relative;
-}
-
-/* --- Magnetic Hover Utility --- */
-.lp-magnetic-wrapper {
-  display: inline-block;
-  position: relative;
-}
-
-/* --- Section 6: Quick Development Check --- */
+/* --- Section: Quick Development Check --- */
 .lp-dev-check-card {
   background: var(--lp-surface);
   border: 1px solid var(--lp-border);
@@ -1144,7 +559,7 @@
   text-transform: uppercase;
 }
 
-/* --- Section: Why the First Five Years Matter --- */
+/* --- Section: Why the First 5 Years Matter --- */
 .lp-stats-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -1185,6 +600,118 @@
 
 .lp-stat-desc {
   font-size: 14px;
+  color: var(--lp-text-secondary);
+}
+
+/* --- Section: Parenting Challenges --- */
+.lp-challenge-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .lp-challenge-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .lp-challenge-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.lp-challenge-card {
+  background-color: var(--lp-surface);
+  border: 1px solid var(--lp-border);
+  border-radius: var(--lp-radius-lg);
+  padding: 32px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--lp-shadow-sm);
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+}
+
+.lp-challenge-icon {
+  margin-bottom: 16px;
+  color: var(--lp-primary);
+  transition: transform 0.3s ease;
+}
+
+.lp-challenge-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.lp-challenge-prompt {
+  font-size: 13px;
+  color: var(--lp-text-light);
+  font-style: italic;
+}
+
+.lp-challenge-expansion {
+  opacity: 0;
+  max-height: 0;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.lp-challenge-card:hover {
+  height: auto;
+  min-height: 250px;
+  border-color: var(--lp-primary);
+  box-shadow: var(--lp-shadow-lg);
+}
+
+.lp-challenge-card:hover .lp-challenge-expansion {
+  opacity: 1;
+  max-height: 200px;
+  margin-top: 16px;
+}
+
+.lp-challenge-card:hover .lp-challenge-icon {
+  transform: scale(1.1);
+}
+
+.lp-concern-box {
+  background-color: rgba(245, 158, 11, 0.05);
+  border-left: 3px solid var(--lp-accent);
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border-radius: 0 4px 4px 0;
+}
+
+.lp-concern-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--lp-accent-hover);
+  margin-bottom: 2px;
+}
+
+.lp-concern-text {
+  font-size: 12px;
+  color: var(--lp-text-secondary);
+}
+
+.lp-solution-box {
+  background-color: rgba(13, 148, 136, 0.05);
+  border-left: 3px solid var(--lp-primary);
+  padding: 8px 12px;
+  border-radius: 0 4px 4px 0;
+}
+
+.lp-solution-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--lp-primary);
+  margin-bottom: 2px;
+}
+
+.lp-solution-text {
+  font-size: 12px;
   color: var(--lp-text-secondary);
 }
 
@@ -1290,6 +817,88 @@
 .lp-timeline-desc {
   font-size: 13px;
   color: var(--lp-text-secondary);
+}
+
+/* --- Section: Development Journey --- */
+.lp-roadmap-container {
+  overflow-x: auto;
+  padding: 20px 0;
+  display: flex;
+  gap: 24px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Roadmap timeline wrapper */
+.lp-roadmap-flow {
+  display: flex;
+  position: relative;
+  min-width: 1200px;
+  padding-bottom: 40px;
+}
+
+.lp-roadmap-flow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50px;
+  height: 4px;
+  background-color: var(--lp-border);
+  z-index: 1;
+}
+
+.lp-roadmap-node {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  scroll-snap-align: center;
+  padding: 0 16px;
+}
+
+.lp-roadmap-dot-wrapper {
+  width: 100px;
+  height: 100px;
+  background-color: var(--lp-surface);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--lp-shadow-sm);
+  border: 4px solid var(--lp-border);
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+  z-index: 20;
+}
+
+.lp-roadmap-node:hover .lp-roadmap-dot-wrapper {
+  border-color: var(--lp-primary);
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(13, 148, 136, 0.15);
+}
+
+.lp-roadmap-stage {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--lp-primary);
+  margin-bottom: 8px;
+}
+
+.lp-roadmap-focus {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.lp-roadmap-desc {
+  font-size: 12px;
+  color: var(--lp-text-secondary);
+  max-width: 180px;
 }
 
 /* --- Section: Activities Preview --- */
@@ -1449,6 +1058,72 @@
 
 .lp-sc-focus span {
   color: var(--lp-text-light);
+}
+
+/* --- Section: Myths vs Science --- */
+.lp-myth-card {
+  background-color: var(--lp-surface);
+  border: 1px solid var(--lp-border);
+  border-radius: var(--lp-radius-lg);
+  padding: 32px;
+  box-shadow: var(--lp-shadow-sm);
+  transition: all 0.25s ease;
+  position: relative;
+  border-left: 4px solid var(--lp-accent);
+}
+
+.lp-myth-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--lp-shadow-md);
+  border-color: var(--lp-primary);
+  border-left-color: var(--lp-primary);
+}
+
+.lp-myth-side {
+  margin-bottom: 20px;
+}
+
+.lp-myth-label {
+  display: inline-block;
+  background-color: #fef2f2;
+  color: #ef4444;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.lp-myth-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ef4444;
+}
+
+.lp-science-side {
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  padding-top: 20px;
+}
+
+.lp-science-label {
+  display: inline-block;
+  background-color: var(--lp-primary-light);
+  color: var(--lp-primary);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.lp-science-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--lp-text-primary);
 }
 
 /* --- Section: Neurish vs Traditional --- */

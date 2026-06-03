@@ -1,23 +1,17 @@
 import { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 
-export default function NeuralNetwork({ scrollEvolve = false, mode = 'normal' }) {
+export default function NeuralNetwork() {
   const containerRef = useRef(null);
-  const modeRef = useRef(mode);
-
-  // Keep mode reference updated for the animation loop
-  useEffect(() => {
-    modeRef.current = mode;
-  }, [mode]);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
+    // --- Scene Setup ---
     const container = containerRef.current;
     const width = container.clientWidth || 600;
     const height = container.clientHeight || 500;
 
-    // --- Scene Setup ---
     const scene = new THREE.Scene();
     
     // Perspective Camera
@@ -31,28 +25,28 @@ export default function NeuralNetwork({ scrollEvolve = false, mode = 'normal' })
     container.appendChild(renderer.domElement);
 
     // --- Lights ---
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0x0d9488, 3, 30);
+    const pointLight = new THREE.PointLight(0x0d9488, 2, 30);
     pointLight.position.set(5, 5, 5);
     scene.add(pointLight);
 
-    const pointLight2 = new THREE.PointLight(0xF59E0B, 2, 30);
+    const pointLight2 = new THREE.PointLight(0xF59E0B, 1.5, 30);
     pointLight2.position.set(-5, -5, 5);
     scene.add(pointLight2);
 
-    // --- Brain Lobes Clustered Layout ---
-    const nodeCount = 60;
+    // --- Neural Network Structure ---
+    const nodeCount = 45;
     const nodes = [];
     const nodeGroup = new THREE.Group();
     scene.add(nodeGroup);
 
-    // Dynamic Materials (Phongs for premium shading/lighting)
+    // Node materials
     const tealMaterial = new THREE.MeshPhongMaterial({
       color: 0x0d9488,
-      emissive: 0x075e54,
-      shininess: 40,
+      emissive: 0x0a6c63,
+      shininess: 30,
       transparent: true,
       opacity: 0.9,
     });
@@ -60,62 +54,61 @@ export default function NeuralNetwork({ scrollEvolve = false, mode = 'normal' })
     const amberMaterial = new THREE.MeshPhongMaterial({
       color: 0xF59E0B,
       emissive: 0xb47105,
-      shininess: 40,
+      shininess: 30,
       transparent: true,
       opacity: 0.9,
     });
 
     const sphereGeometry = new THREE.SphereGeometry(0.12, 16, 16);
 
-    // Create Clustered Nodes (Grouping into 3 lobes: Frontal, Sensory/Occipital, Temporal)
-    const lobes = [
-      { center: new THREE.Vector3(-1.8, 0.5, 0), radius: 2.2, ratio: 0.35 }, // Frontal Lobe
-      { center: new THREE.Vector3(1.8, 0.8, 0), radius: 2.0, ratio: 0.35 },  // Sensory / Occipital
-      { center: new THREE.Vector3(0, -1.2, 0.5), radius: 1.8, ratio: 0.30 }  // Temporal / Lower Lobe
-    ];
-
-    let lobeIdx = 0;
-    let accumulatedRatio = 0;
-
+    // Create Nodes
     for (let i = 0; i < nodeCount; i++) {
-      const currentRatio = i / nodeCount;
-      if (currentRatio > accumulatedRatio + lobes[lobeIdx].ratio && lobeIdx < lobes.length - 1) {
-        accumulatedRatio += lobes[lobeIdx].ratio;
-        lobeIdx++;
-      }
-
-      const lobe = lobes[lobeIdx];
-      const radius = Math.random() * lobe.radius;
+      // Pick color theme
+      const isAmber = Math.random() > 0.65;
+      const mesh = new THREE.Mesh(sphereGeometry, isAmber ? amberMaterial : tealMaterial);
+      
+      // Position nodes in a 3D spherical cluster
+      const radius = 4 + Math.random() * 2;
       const u = Math.random();
       const v = Math.random();
       const theta = u * 2.0 * Math.PI;
       const phi = Math.acos(2.0 * v - 1.0);
       
-      const x = lobe.center.x + radius * Math.sin(phi) * Math.cos(theta);
-      const y = lobe.center.y + radius * Math.sin(phi) * Math.sin(theta);
-      const z = lobe.center.z + radius * Math.cos(phi) * 0.7;
+      const x = radius * Math.sin(phi) * Math.cos(theta);
+      const y = radius * Math.sin(phi) * Math.sin(theta);
+      const z = radius * Math.cos(phi) * 0.7; // Flatten slightly on Z-axis
 
-      const isAmber = Math.random() > 0.65;
-      const mesh = new THREE.Mesh(sphereGeometry, isAmber ? amberMaterial.clone() : tealMaterial.clone());
       mesh.position.set(x, y, z);
       nodeGroup.add(mesh);
 
       nodes.push({
         mesh,
         basePos: new THREE.Vector3(x, y, z),
+        velocity: new THREE.Vector3(
+          (Math.random() - 0.5) * 0.005,
+          (Math.random() - 0.5) * 0.005,
+          (Math.random() - 0.5) * 0.005
+        ),
         phase: Math.random() * Math.PI * 2,
-        speed: 0.4 + Math.random() * 0.5,
+        speed: 0.3 + Math.random() * 0.4,
         pulseScale: 1.0,
-        isAmber,
-        originalColor: isAmber ? new THREE.Color(0xF59E0B) : new THREE.Color(0x0d9488),
-        originalEmissive: isAmber ? new THREE.Color(0xb47105) : new THREE.Color(0x075e54)
       });
     }
 
     // --- Dynamic Connections (Lines) ---
-    const maxConnections = 250;
+    // We will draw connections between nodes that are close to each other.
+    const maxDistance = 2.8;
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: 0x0d9488,
+      transparent: true,
+      opacity: 0.15,
+      blending: THREE.AdditiveBlending
+    });
+
+    // We pre-allocate space for maximum possible connections
+    const maxConnections = 200;
     const lineGeometry = new THREE.BufferGeometry();
-    const posArray = new Float32Array(maxConnections * 2 * 3);
+    const posArray = new Float32Array(maxConnections * 2 * 3); // 2 points per line, 3 coords per point
     const colorArray = new Float32Array(maxConnections * 2 * 3);
 
     lineGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
@@ -124,70 +117,25 @@ export default function NeuralNetwork({ scrollEvolve = false, mode = 'normal' })
     const lineSegments = new THREE.LineSegments(lineGeometry, new THREE.LineBasicMaterial({
       vertexColors: true,
       transparent: true,
-      opacity: 0.3,
+      opacity: 0.25,
       blending: THREE.AdditiveBlending,
-      linewidth: 1
+      linewidth: 1 // WebGL ignored in most browsers, but good design standard
     }));
     scene.add(lineSegments);
 
-    // --- Synapse-Style Signaling Pulses ---
-    // Pre-allocate small glowing spheres that travel between active node pairs
-    const pulseCount = 18;
-    const pulses = [];
-    const pulseGeometry = new THREE.SphereGeometry(0.06, 8, 8);
-    const pulseMaterial = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      transparent: true,
-      opacity: 0.9,
-      blending: THREE.AdditiveBlending
-    });
-
-    for (let i = 0; i < pulseCount; i++) {
-      const mesh = new THREE.Mesh(pulseGeometry, pulseMaterial.clone());
-      mesh.visible = false;
-      scene.add(mesh);
-      pulses.push({
-        mesh,
-        startNodeIdx: 0,
-        endNodeIdx: 0,
-        progress: 0,
-        speed: 0.5 + Math.random() * 1.0,
-        active: false
-      });
-    }
-
-    // --- Mouse & Scroll Position Tracker ---
+    // --- Mouse Interaction ---
     const mouse = new THREE.Vector2(0, 0);
     const targetMouse = new THREE.Vector2(0, 0);
     const mouseRadius = 3.5;
-    let scrollRatio = 0;
 
     const handleMouseMove = (event) => {
       const rect = renderer.domElement.getBoundingClientRect();
       const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-      targetMouse.set(x * 6, y * 6);
-    };
-
-    const handleScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight > 0) {
-        scrollRatio = window.scrollY / scrollHeight;
-      }
+      targetMouse.set(x * 6, y * 6); // Scale to 3D units
     };
 
     container.addEventListener('mousemove', handleMouseMove);
-    if (scrollEvolve) {
-      window.addEventListener('scroll', handleScroll);
-      handleScroll(); // Trigger initial scroll check
-    }
-
-    // --- Simulator Lerp Parameters ---
-    let currentMaxDistance = 2.6;
-    let currentPulseSpeed = 1.0;
-    let currentLineOpacity = 0.25;
-    let currentDriftSpeed = 1.0;
-    let currentColorShift = 0.0; // 0 = default, 1 = alternative colors (mode specific)
 
     // --- Animation Loop ---
     let animationFrameId;
@@ -196,185 +144,106 @@ export default function NeuralNetwork({ scrollEvolve = false, mode = 'normal' })
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      const deltaTime = clock.getDelta();
       const elapsedTime = clock.getElapsedTime();
-
+      
       // Smooth mouse interpolation
       mouse.x += (targetMouse.x - mouse.x) * 0.05;
       mouse.y += (targetMouse.y - mouse.y) * 0.05;
 
-      // Subtle parallax rotation
-      nodeGroup.rotation.y = mouse.x * 0.04;
-      nodeGroup.rotation.x = -mouse.y * 0.04;
+      // Subtle parallax rotation of the entire group based on mouse
+      nodeGroup.rotation.y = mouse.x * 0.05;
+      nodeGroup.rotation.x = -mouse.y * 0.05;
 
-      // Determine target variables based on Simulator Mode
-      const currentMode = modeRef.current;
-      let targetMaxDistance = 2.6;
-      let targetPulseSpeed = 1.2;
-      let targetLineOpacity = 0.25;
-      let targetDriftSpeed = 0.8;
-      let targetColorMode = 'normal'; // normal, gray, warm, indigo
-
-      if (currentMode === 'screentime') {
-        targetMaxDistance = 0.8;
-        targetPulseSpeed = 0.0;
-        targetLineOpacity = 0.05;
-        targetDriftSpeed = 0.3;
-        targetColorMode = 'gray';
-      } else if (currentMode === 'no_interaction') {
-        targetMaxDistance = 1.0;
-        targetPulseSpeed = 0.1;
-        targetLineOpacity = 0.08;
-        targetDriftSpeed = 0.2;
-        targetColorMode = 'gray';
-      } else if (currentMode === 'reading') {
-        targetMaxDistance = 3.6;
-        targetPulseSpeed = 2.8;
-        targetLineOpacity = 0.7;
-        targetDriftSpeed = 1.6;
-        targetColorMode = 'warm';
-      } else if (currentMode === 'communication') {
-        targetMaxDistance = 3.4;
-        targetPulseSpeed = 2.4;
-        targetLineOpacity = 0.6;
-        targetDriftSpeed = 1.4;
-        targetColorMode = 'warm';
-      } else if (currentMode === 'play') {
-        targetMaxDistance = 3.2;
-        targetPulseSpeed = 2.6;
-        targetLineOpacity = 0.65;
-        targetDriftSpeed = 1.5;
-        targetColorMode = 'normal';
-      } else if (currentMode === 'sleep') {
-        targetMaxDistance = 2.4;
-        targetPulseSpeed = 0.3;
-        targetLineOpacity = 0.35;
-        targetDriftSpeed = 0.15;
-        targetColorMode = 'indigo';
-      }
-
-      // Smoothly interpolate parameters (Lerp)
-      currentMaxDistance += (targetMaxDistance - currentMaxDistance) * 0.08;
-      currentPulseSpeed += (targetPulseSpeed - currentPulseSpeed) * 0.08;
-      currentLineOpacity += (targetLineOpacity - currentLineOpacity) * 0.08;
-      currentDriftSpeed += (targetDriftSpeed - currentDriftSpeed) * 0.08;
-      lineSegments.material.opacity = currentLineOpacity;
-
-      // Scroll-based Evolution Override (Hero / Global page visual)
-      // Node visibility and connection density scale up progressively with scroll progress
-      let activeNodeCount = nodeCount;
-      if (scrollEvolve) {
-        // Hero start: 20 nodes, scroll end: 60 nodes
-        activeNodeCount = Math.floor(18 + Math.min(scrollRatio * 1.5, 1.0) * (nodeCount - 18));
-        // Max connection line range scales up
-        const scrollDistanceBonus = Math.min(scrollRatio * 1.5, 1.0) * 1.2;
-        currentMaxDistance = 1.5 + scrollDistanceBonus;
-      }
-
-      // 1. Update Nodes (Visibility, organic float, mouse reaction, color morphs)
-      nodes.forEach((node, idx) => {
+      // 1. Move Nodes Organically (Floating motion + mouse pull)
+      nodes.forEach((node) => {
         const mesh = node.mesh;
         
-        // Handle visibility on scroll
-        mesh.visible = idx < activeNodeCount;
-        if (!mesh.visible) return;
+        // Organic sine wave floating offset
+        const timeFactor = elapsedTime * node.speed;
+        const offsetX = Math.sin(timeFactor + node.phase) * 0.15;
+        const offsetY = Math.cos(timeFactor * 0.8 + node.phase) * 0.15;
+        const offsetZ = Math.sin(timeFactor * 1.2 + node.phase) * 0.15;
 
-        // Base float
-        const timeFactor = elapsedTime * node.speed * currentDriftSpeed;
-        const offsetX = Math.sin(timeFactor + node.phase) * 0.18;
-        const offsetY = Math.cos(timeFactor * 0.8 + node.phase) * 0.18;
-        const offsetZ = Math.sin(timeFactor * 1.2 + node.phase) * 0.18;
-
+        // Base Position
         const targetPos = node.basePos.clone().add(new THREE.Vector3(offsetX, offsetY, offsetZ));
 
-        // Mouse proximity reaction: repel slightly
+        // Mouse Proximity Attraction
         const mouse3D = new THREE.Vector3(mouse.x, mouse.y, 0);
+        // Project node to screen-ish coordinates or check 3D distance
         const distToMouse = targetPos.distanceTo(mouse3D);
         if (distToMouse < mouseRadius) {
-          const repelStrength = (1.0 - distToMouse / mouseRadius) * 0.35;
-          const repelDir = targetPos.clone().sub(mouse3D).normalize();
-          targetPos.add(repelDir.multiplyScalar(repelStrength));
-          node.pulseScale += (1.4 - node.pulseScale) * 0.1;
+          // Attract nodes slightly towards mouse
+          const pullStrength = (1.0 - distToMouse / mouseRadius) * 0.4;
+          const pullDir = mouse3D.clone().sub(targetPos).normalize();
+          targetPos.add(pullDir.multiplyScalar(pullStrength));
+          
+          // Node pulse scale
+          node.pulseScale += (1.3 - node.pulseScale) * 0.1;
         } else {
           node.pulseScale += (1.0 - node.pulseScale) * 0.1;
         }
 
+        // Apply scale
         mesh.scale.setScalar(node.pulseScale);
+
+        // Smoothly interpolate position
         mesh.position.lerp(targetPos, 0.08);
-
-        // LERP colors based on the current simulator mode
-        let targetColor = node.originalColor;
-        let targetEmissive = node.originalEmissive;
-
-        if (targetColorMode === 'gray') {
-          // Dull gray
-          targetColor = new THREE.Color(0x64748b);
-          targetEmissive = new THREE.Color(0x334155);
-        } else if (targetColorMode === 'warm') {
-          // Glowing warm gold/amber
-          targetColor = new THREE.Color(0xffb703);
-          targetEmissive = new THREE.Color(0xfb8500);
-        } else if (targetColorMode === 'indigo') {
-          // Deep peaceful cyan/indigo
-          targetColor = new THREE.Color(0x6366f1);
-          targetEmissive = new THREE.Color(0x312e81);
-        }
-
-        mesh.material.color.lerp(targetColor, 0.08);
-        mesh.material.emissive.lerp(targetEmissive, 0.08);
       });
 
-      // 2. Update Lines & active connection coordinate table
+      // 2. Update Lines & Connections dynamically
       let connectionIdx = 0;
       const positions = lineGeometry.attributes.position.array;
       const colors = lineGeometry.attributes.color.array;
-      const activePairs = []; // To feed valid routes into the pulse signaling simulator
 
-      for (let i = 0; i < activeNodeCount; i++) {
-        for (let j = i + 1; j < activeNodeCount; j++) {
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
           if (connectionIdx >= maxConnections) break;
 
           const posA = nodes[i].mesh.position;
           const posB = nodes[j].mesh.position;
           const dist = posA.distanceTo(posB);
 
-          if (dist < currentMaxDistance) {
+          if (dist < maxDistance) {
+            // Draw connection
             const idx = connectionIdx * 6;
             
-            // Set coords
+            // Set coordinates for Node A
             positions[idx] = posA.x;
             positions[idx + 1] = posA.y;
             positions[idx + 2] = posA.z;
+            
+            // Set coordinates for Node B
             positions[idx + 3] = posB.x;
             positions[idx + 4] = posB.y;
             positions[idx + 5] = posB.z;
 
-            // Connection opacity fade
-            const fade = 1.0 - dist / currentMaxDistance;
-
-            // Proximity synapse illumination around mouse
-            const center = posA.clone().add(posB).multiplyScalar(0.5);
-            const mouse3D = new THREE.Vector3(mouse.x, mouse.y, 0);
-            const mouseDist = center.distanceTo(mouse3D);
-            const highlight = mouseDist < mouseRadius ? (1.0 - mouseDist / mouseRadius) * 2.0 + 1.0 : 1.0;
-
+            // Colors transition based on node type
             const colA = nodes[i].mesh.material.color;
             const colB = nodes[j].mesh.material.color;
 
-            colors[idx] = colA.r * fade * highlight;
-            colors[idx + 1] = colA.g * fade * highlight;
-            colors[idx + 2] = colA.b * fade * highlight;
-            colors[idx + 3] = colB.r * fade * highlight;
-            colors[idx + 4] = colB.g * fade * highlight;
-            colors[idx + 5] = colB.b * fade * highlight;
+            // Connection opacity fade based on distance
+            const fade = 1.0 - dist / maxDistance;
+            
+            // Highlight connections that are closer to mouse
+            const center = posA.clone().add(posB).multiplyScalar(0.5);
+            const mouse3D = new THREE.Vector3(mouse.x, mouse.y, 0);
+            const mouseDist = center.distanceTo(mouse3D);
+            const mouseHighlight = mouseDist < mouseRadius ? (1.0 - mouseDist / mouseRadius) * 1.5 + 1.0 : 1.0;
 
-            activePairs.push({ start: i, end: j });
+            colors[idx] = colA.r * fade * mouseHighlight;
+            colors[idx + 1] = colA.g * fade * mouseHighlight;
+            colors[idx + 2] = colA.b * fade * mouseHighlight;
+
+            colors[idx + 3] = colB.r * fade * mouseHighlight;
+            colors[idx + 4] = colB.g * fade * mouseHighlight;
+            colors[idx + 5] = colB.b * fade * mouseHighlight;
+
             connectionIdx++;
           }
         }
       }
 
-      // Clear unused slots
+      // Zero out the remaining positions if connections are less than maxConnections
       for (let k = connectionIdx; k < maxConnections; k++) {
         const idx = k * 6;
         positions[idx] = 0; positions[idx + 1] = 0; positions[idx + 2] = 0;
@@ -383,40 +252,6 @@ export default function NeuralNetwork({ scrollEvolve = false, mode = 'normal' })
 
       lineGeometry.attributes.position.needsUpdate = true;
       lineGeometry.attributes.color.needsUpdate = true;
-
-      // 3. Update Synapse Firing Pulses
-      pulses.forEach((pulse) => {
-        // If pulse is inactive or path broke, re-assign paths if we have connection routes
-        if ((!pulse.active || pulse.progress >= 1.0) && activePairs.length > 0) {
-          const route = activePairs[Math.floor(Math.random() * activePairs.length)];
-          pulse.startNodeIdx = route.start;
-          pulse.endNodeIdx = route.end;
-          pulse.progress = 0;
-          pulse.active = true;
-          pulse.mesh.visible = true;
-          pulse.speed = 0.6 + Math.random() * 1.5;
-        }
-
-        if (pulse.active && currentPulseSpeed > 0) {
-          pulse.progress += deltaTime * pulse.speed * currentPulseSpeed;
-          
-          const posA = nodes[pulse.startNodeIdx].mesh.position;
-          const posB = nodes[pulse.endNodeIdx].mesh.position;
-          
-          pulse.mesh.position.lerpVectors(posA, posB, Math.min(pulse.progress, 1.0));
-
-          // Set pulse mesh opacity & scaling
-          pulse.mesh.scale.setScalar(1.0 + Math.sin(elapsedTime * 8) * 0.2);
-          pulse.mesh.material.opacity = currentLineOpacity * 2.0;
-
-          if (pulse.progress >= 1.0) {
-            pulse.active = false;
-            pulse.mesh.visible = false;
-          }
-        } else if (currentPulseSpeed === 0) {
-          pulse.mesh.visible = false;
-        }
-      });
 
       renderer.render(scene, camera);
     };
@@ -438,24 +273,21 @@ export default function NeuralNetwork({ scrollEvolve = false, mode = 'normal' })
     return () => {
       cancelAnimationFrame(animationFrameId);
       container.removeEventListener('mousemove', handleMouseMove);
-      if (scrollEvolve) {
-        window.removeEventListener('scroll', handleScroll);
-      }
       window.removeEventListener('resize', handleResize);
       
+      // Dispose materials & geometries
       sphereGeometry.dispose();
       tealMaterial.dispose();
       amberMaterial.dispose();
+      lineMaterial.dispose();
       lineGeometry.dispose();
-      pulseGeometry.dispose();
-      pulseMaterial.dispose();
       renderer.dispose();
       
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
     };
-  }, [scrollEvolve]);
+  }, []);
 
   return (
     <div 
