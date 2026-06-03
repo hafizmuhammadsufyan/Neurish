@@ -1,8 +1,13 @@
 import { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 
-export default function NeuralNetwork() {
+export default function NeuralNetwork({ stage = 0.9 }) {
   const containerRef = useRef(null);
+  const stageRef = useRef(stage);
+
+  useEffect(() => {
+    stageRef.current = stage;
+  }, [stage]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -97,11 +102,11 @@ export default function NeuralNetwork() {
 
     // --- Dynamic Connections (Lines) ---
     // We will draw connections between nodes that are close to each other.
-    const maxDistance = 2.8;
+    const maxDistanceBase = 2.8;
     const lineMaterial = new THREE.LineBasicMaterial({
       color: 0x0d9488,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.18,
       blending: THREE.AdditiveBlending
     });
 
@@ -184,7 +189,9 @@ export default function NeuralNetwork() {
         }
 
         // Apply scale
-        mesh.scale.setScalar(node.pulseScale);
+        const loadedStage = Math.max(0, Math.min(1, stageRef.current));
+        const baseScale = 0.7 + loadedStage * 0.5;
+        mesh.scale.setScalar(node.pulseScale * baseScale);
 
         // Smoothly interpolate position
         mesh.position.lerp(targetPos, 0.08);
@@ -203,6 +210,8 @@ export default function NeuralNetwork() {
           const posB = nodes[j].mesh.position;
           const dist = posA.distanceTo(posB);
 
+          const loadedStage = Math.max(0, Math.min(1, stageRef.current));
+          const maxDistance = maxDistanceBase + loadedStage * 3.2;
           if (dist < maxDistance) {
             // Draw connection
             const idx = connectionIdx * 6;

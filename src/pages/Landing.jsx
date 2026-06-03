@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import NeuralNetwork from '../components/NeuralNetwork';
+import ChildJourneySection from '../components/ChildJourneySection';
+import BrainConnectionsSimulator from '../components/BrainConnectionsSimulator';
 import './Landing.css';
 
 // --- Local Count-Up Statistic Component ---
@@ -184,80 +186,116 @@ export default function Landing() {
     }
   };
 
-  // --- 2. Parenting Challenges Dataset ---
-  const challenges = [
+  // --- 2. Chapter and Emotional Story Data ---
+  const chapters = [
+    { id: 'chapter-1', label: 'The Beginning' },
+    { id: 'chapter-2', label: 'The First Years' },
+    { id: 'chapter-3', label: 'The Challenges' },
+    { id: 'chapter-4', label: 'The Science' },
+    { id: 'chapter-5', label: 'The Possibility' },
+    { id: 'chapter-6', label: 'The Future' }
+  ];
+
+  const challengeStories = [
     {
       topic: 'Tantrums',
       icon: <ShieldAlert size={28} />,
       concern: 'My toddler has sudden intense crying fits and hits the floor.',
-      solution: 'Neurish guides you to identify emotional triggers, teach basic feeling labels, and establish co-regulation zones.'
+      reason: 'Raw emotion is a child’s first language before words can catch up.',
+      solution: 'Neurish helps you name feelings, steady the environment, and guide self-regulation with calm routines.'
     },
     {
       topic: 'Screen Time',
       icon: <Brain size={28} />,
       concern: 'I feel guilty using screens but need time to complete house chores.',
-      solution: 'We offer healthy screen-time limits by age and suggest high-stimulus, low-tech alternatives.'
+      reason: 'Passive screens replace the responsive attention that builds hard-wired communication circuits.',
+      solution: 'We design low-tech substitutions that keep your child engaged while preserving learning-rich interaction.'
     },
     {
       topic: 'Speech Development',
       icon: <Sparkles size={28} />,
       concern: 'My 18-month-old only makes sounds and does not speak clear words.',
-      solution: 'Our server-and-return communication exercises and kitchen narration guides help build vocabulary faster.'
+      reason: 'Speech grows out of consistent turn-taking, not just hearing words in the background.',
+      solution: 'Our guided narration prompts and conversation games make every day a vocabulary-building moment.'
     },
     {
       topic: 'Sleep Issues',
       icon: <HelpCircle size={28} />,
       concern: 'Bedtime is a struggle and my baby wakes up multiple times a night.',
-      solution: 'Neurish provides science-backed sleep hygiene routines based on WHO infant sleep guidelines.'
+      reason: 'Inconsistent sleep disrupts the brain’s ability to store learning and regulate emotion.',
+      solution: 'Neurish gives you a reliable sleep routine shaped by pediatric sleep science and real family rhythms.'
     },
     {
       topic: 'Emotional Regulation',
       icon: <Smile size={28} />,
       concern: 'How do I help my child handle intense frustration when play goes wrong?',
-      solution: 'We supply sensory calming cards and guided breathing games validated by pediatric psychology boards.'
+      reason: 'Big feelings are part of learning how to manage the body and the mind together.',
+      solution: 'We offer sensory scaffolds and simple breath-based exercises parents can use anywhere.'
     },
     {
       topic: 'Learning Through Play',
       icon: <Activity size={28} />,
       concern: 'What toys and activities actually support cognitive learning instead of just noise?',
-      solution: 'Every play layout we suggest targets spatial logic, categorization, or fine motor strength.'
+      reason: 'Meaningful play is built around choice, repetition, and curiosity, not shiny distractions.',
+      solution: 'Every activity we recommend is selected for focus, language, motor development, and emotional growth.'
     }
   ];
 
-  // --- 3. Roadmap Nodes ---
   const roadmapNodes = [
-    { stage: 'Birth', title: 'Sensory Bonding', desc: 'Eye tracking, response to voices, and head control foundation.' },
-    { stage: 'Language', title: 'Vocal Expansion', desc: 'From basic babbling to expressive descriptive vocabulary.' },
-    { stage: 'Social Skills', title: 'Emotional Mirroring', desc: 'Understanding facial cues, empathy, and peer play patterns.' },
-    { stage: 'Problem Solving', title: 'Spatial Reasoning', desc: 'Block construction, sorting, and shape classification logic.' },
-    { stage: 'Confidence', title: 'Self-Determination', desc: 'Task independence, dressing, and expressing creative choices.' },
-    { stage: 'Future Success', title: 'Cognitive Ready', desc: 'Prepared with resilience, executive function, and motor coordination.' }
+    { stage: 'I Feel Safe', title: 'Trust and calm become the first home.', desc: 'A secure world gives a child the confidence to explore and learn.' },
+    { stage: 'I Express Myself', title: 'Thoughts find words and feelings find meaning.', desc: 'Language and emotion grow together when parents respond with warmth.' },
+    { stage: 'I Learn', title: 'Curiosity becomes structure and progress.', desc: 'Play, stories, and gentle challenge build the brain’s early architecture.' },
+    { stage: 'I Explore', title: 'Confidence opens new paths.', desc: 'A child who feels safe is more willing to try, fail, and try again.' },
+    { stage: 'I Build Confidence', title: 'Small wins become steady belief.', desc: 'Mastering a new skill rewires the brain to expect success.' },
+    { stage: 'I Shape My Future', title: 'Early moments change what is possible.', desc: 'The foundation set now supports resilience, focus, and healthy relationships.' }
   ];
 
-  // --- 4. Parenting Myths vs Science Dataset ---
-  const myths = [
+  const confusionBlocks = [
     {
-      myth: 'More screen time helps babies learn language faster.',
-      science: 'Real-world, serve-and-return interaction is the primary biological driver for early language development.',
-      source: 'American Academy of Pediatrics (AAP)',
-      evidenceLevel: 'Level I',
-      sourceUrl: 'https://www.aap.org'
-    },
-    {
-      myth: 'Tantrums are a sign of bad behavior or poor parenting.',
-      science: 'Tantrums are natural emotional regulation limits. Toddlers feel big feelings before their brain is wired to speak them.',
+      myth: 'Most parenting guides are one-size-fits-all.',
+      science: 'Early development is highly individualized; the most effective guidance adjusts to your child’s pace and emotional state.',
       source: 'Harvard Center on the Developing Child',
-      evidenceLevel: 'Level I',
-      sourceUrl: 'https://developingchild.harvard.edu'
+      evidenceLevel: 'Level I'
     },
     {
-      myth: 'Children naturally build communication skills without parental support.',
-      science: 'Conversational turn-taking between parents and children physically shapes the child\'s white-matter language tracts.',
+      myth: 'Screens can replace time spent speaking with your child.',
+      science: 'Language circuits strengthen with real conversation, not passive exposure.',
+      source: 'American Academy of Pediatrics (AAP)',
+      evidenceLevel: 'Level I'
+    },
+    {
+      myth: 'Behavior problems are just a phase you should ignore.',
+      science: 'Every big reaction is data about a child’s needs and the brain state behind their behavior.',
       source: 'National Institutes of Health (NIH)',
-      evidenceLevel: 'Level I',
-      sourceUrl: 'https://www.nih.gov'
+      evidenceLevel: 'Level I'
     }
   ];
+
+  const [activeChapter, setActiveChapter] = useState(chapters[0].id);
+
+  useEffect(() => {
+    const sectionElements = chapters
+      .map((chapter) => document.getElementById(chapter.id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveChapter(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.45 }
+    );
+
+    sectionElements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const activeChapterIndex = chapters.findIndex((chapter) => chapter.id === activeChapter);
+  const brainStage = Math.max(0.12, Math.min(1, (activeChapterIndex + 1) / chapters.length));
 
   // Filter activities from context or use fallbacks for Preview
   const previewActivity = activities.find(act => {
@@ -297,204 +335,130 @@ export default function Landing() {
       </header>
 
       {/* SECTION 2: HERO SECTION */}
-      <section className="lp-hero">
-        <div className="lp-container">
-          <div className="lp-grid-2 lp-hero-grid">
-            
-            {/* Left Side Copy */}
-            <div className="lp-hero-left">
-              <div className="lp-badge">Research-Backed Early Childhood Development</div>
-              <h1 className="lp-hero-title">
-                The First Research-Backed Parenting Platform <span className="lp-text-gradient">Built For Growing Minds</span>
-              </h1>
-              <p className="lp-hero-subtitle">
-                Personalized developmental guidance, milestone tracking, and science-backed parenting tools designed for the years that matter most.
-              </p>
-              
-              <div className="lp-hero-buttons">
-                <button className="lp-btn lp-btn-primary lp-btn-lg" onClick={() => navigate('/onboarding')}>
-                  Start Your Child's Journey <ChevronRight size={18} />
-                </button>
-                <button className="lp-btn lp-btn-secondary lp-btn-lg" onClick={() => navigate('/research')}>
-                  Explore Research
-                </button>
-              </div>
+      <section id="chapter-1" className="lp-hero">
+        <div className="lp-container lp-hero-layout">
+          <div className="lp-hero-copy">
+            <div className="lp-badge">Every early moment rewires a child’s future</div>
+            <h1 className="lp-hero-title">
+              The first years are not just moments.
+              They are the story of a growing mind.
+            </h1>
+            <p className="lp-hero-subtitle">
+              When a child enters the world, the brain begins to form pathways that will carry every later step. This is not a product page—it is the first chapter of a lived journey.
+            </p>
 
-              <div className="lp-hero-trust">
-                <div className="lp-trust-label">Aligned with Global Authorities</div>
-                <div className="lp-trust-logos">
-                  <span className="lp-trust-logo" title="World Health Organization">WHO</span>
-                  <span className="lp-trust-logo" title="UNICEF Child Learning">UNICEF</span>
-                  <span className="lp-trust-logo" title="Centers for Disease Control">CDC</span>
-                  <span className="lp-trust-logo" title="American Academy of Pediatrics">AAP</span>
-                </div>
-              </div>
+            <div className="lp-hero-buttons">
+              <button className="lp-btn lp-btn-primary lp-btn-lg" onClick={() => navigate('/onboarding')}>
+                Guide their growing future <ChevronRight size={18} />
+              </button>
+              <button className="lp-btn lp-btn-secondary lp-btn-lg" onClick={() => navigate('/research')}>
+                Explore the science
+              </button>
             </div>
 
-            {/* Right Side Three.js Interactive Visual */}
-            <div className="lp-hero-right">
-              <NeuralNetwork />
-              <div className="lp-visual-tip">
-                <div className="lp-visual-tip-dot"></div>
-                <span className="lp-visual-tip-text">Hover to interact with the growing neural connections</span>
+            <div className="lp-hero-trust lp-hero-trust-compact">
+              <div className="lp-trust-label">Trusted by pediatric research</div>
+              <div className="lp-trust-logos">
+                <span className="lp-trust-logo">WHO</span>
+                <span className="lp-trust-logo">UNICEF</span>
+                <span className="lp-trust-logo">CDC</span>
+                <span className="lp-trust-logo">AAP</span>
               </div>
             </div>
+          </div>
 
+          <div className="lp-hero-right lp-hero-right-large">
+            <div className="lp-hero-visual-frame">
+              <NeuralNetwork stage={0.18} />
+              <div className="lp-hero-frame-copy">
+                <span>Partially formed</span>
+                <p>The brain is just beginning to light its first connections.</p>
+              </div>
+            </div>
+            <div className="lp-hero-scroll-tracker">
+              <div className="lp-scroll-track-label">Scroll to follow the story</div>
+              <div className="lp-scroll-tracker">
+                {chapters.map((chapter, idx) => (
+                  <div key={idx} className={`lp-scroll-step ${activeChapter === chapter.id ? 'active' : ''}`}>
+                    <span className="lp-scroll-step-dot"></span>
+                    <span>{chapter.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 3: QUICK DEVELOPMENT CHECK (NEW) */}
-      <section className="lp-section">
+      {/* SECTION 3: THE FIRST YEARS */}
+      <section id="chapter-2" className="lp-section-alt lp-section-with-brain">
         <div className="lp-container">
           <div className="lp-section-header">
-            <h2 className="lp-section-title">Quick Development Check</h2>
+            <h2 className="lp-section-title">The brain begins forming.</h2>
             <p className="lp-section-subtitle">
-              See what developmental milestones matter most for your child's age group. Select an age below to view guidelines.
+              During the first years, every shared sentence, gentle encouragement, and responsive pause deepens the pathways that support lifelong learning.
             </p>
           </div>
 
-          <div className="lp-dev-check-card">
-            <div className="lp-age-tabs">
-              {Object.keys(devChecks).map((ageKey) => (
-                <button 
-                  key={ageKey} 
-                  className={`lp-age-tab ${activeCheckAge === ageKey ? 'active' : ''}`}
-                  onClick={() => setActiveCheckAge(ageKey)}
-                >
-                  Age {ageKey}
-                </button>
-              ))}
+          <div className="lp-section-split">
+            <div className="lp-brain-spotlight">
+              <NeuralNetwork stage={0.45} />
+              <div className="lp-brain-spotlight-copy">
+                <strong>More connections begin to glow.</strong> The brain is not finished—it is actively forming in every small interaction.
+              </div>
             </div>
 
-            <div className="lp-dc-results">
-              
-              {/* Focus & Milestones */}
-              <div className="lp-dc-col">
-                <h4>
-                  <Brain size={18} className="lp-text-primary-color" />
-                  <span>{devChecks[activeCheckAge].age} Focus</span>
-                </h4>
-                <div style={{ fontWeight: 800, fontSize: '15px', color: 'var(--lp-primary)', marginBottom: '16px' }}>
-                  {devChecks[activeCheckAge].focus}
+            <div className="lp-stats-grid lp-stats-grid-2">
+              <div className="lp-stat-card lp-stat-card-light">
+                <div className="lp-stat-num">
+                  <Counter value="90%" />
                 </div>
-                <p style={{ fontSize: '13px', color: 'var(--lp-text-secondary)', marginBottom: '12px' }}>
-                  Key Developmental Milestones:
+                <h3 className="lp-stat-title">The first five years shape the foundation</h3>
+                <p className="lp-stat-desc">
+                  A child’s brain reaches nearly adult volume before kindergarten, making these years the most powerful window for growth.
                 </p>
-                <ul className="lp-dc-list">
-                  {devChecks[activeCheckAge].milestones.map((milestone, idx) => (
-                    <li key={idx}>{milestone}</li>
-                  ))}
-                </ul>
               </div>
 
-              {/* Recommended Activity */}
-              <div className="lp-dc-col">
-                <h4>
-                  <Activity size={18} style={{ color: 'var(--lp-accent)' }} />
-                  <span>Recommended Activity</span>
-                </h4>
-                <div className="lp-dc-activity-box">
-                  <div className="lp-dc-activity-title">{devChecks[activeCheckAge].activity.title}</div>
-                  <div className="lp-dc-activity-benefit">{devChecks[activeCheckAge].activity.desc}</div>
+              <div className="lp-stat-card lp-stat-card-light">
+                <div className="lp-stat-num">
+                  <Counter value="1M" />
                 </div>
-                <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--lp-text-light)' }}>
-                  Duration: {devChecks[activeCheckAge].activity.duration}
-                </div>
-              </div>
-
-              {/* Scientific Trust Info */}
-              <div className="lp-dc-col">
-                <h4>
-                  <Award size={18} className="lp-text-primary-color" />
-                  <span>Scientific Trust Check</span>
-                </h4>
-                <p style={{ fontSize: '13px', color: 'var(--lp-text-secondary)' }}>
-                  This guideline is verified and compiled by pediatric institutions:
+                <h3 className="lp-stat-title">Connections formed every second</h3>
+                <p className="lp-stat-desc">
+                  Every responsive touch, sentence, and nurturing pause strengthens the wiring behind thinking, feeling, and focusing.
                 </p>
-                <div className="lp-dc-evidence">
-                  Evidence Level: {devChecks[activeCheckAge].evidenceLevel}
-                </div>
-                <div className="lp-dc-reference">
-                  Source: <strong>{devChecks[activeCheckAge].source}</strong>
-                  <br />
-                  Learn more at:{' '}
-                  <a href={devChecks[activeCheckAge].sourceUrl} target="_blank" rel="noopener noreferrer">
-                    {devChecks[activeCheckAge].sourceUrl}
-                  </a>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 4: WHY THE FIRST FIVE YEARS MATTER */}
-      <section className="lp-section-alt">
-        <div className="lp-container">
-          <div className="lp-section-header">
-            <h2 className="lp-section-title">Why the First Five Years Matter</h2>
-            <p className="lp-section-subtitle">
-              Scientific research confirms that early childhood experiences lay the physical foundation for all future learning, behavior, and health.
-            </p>
-          </div>
-
-          <div className="lp-stats-grid">
-            <div className="lp-stat-card">
-              <div className="lp-stat-num">
-                <Counter value="90%" />
-              </div>
-              <h3 className="lp-stat-title">Brain Development Before Age 5</h3>
-              <p className="lp-stat-desc">
-                By age five, a child's brain has developed 90% of its adult volume. These years represent the highest rate of synaptic density formation.
-              </p>
-              <div style={{ fontSize: '11px', color: 'var(--lp-text-light)', marginTop: '16px' }}>
-                Source: Harvard Center on the Developing Child (Evidence Level I)
-              </div>
-            </div>
-
-            <div className="lp-stat-card">
-              <div className="lp-stat-num">
-                <Counter value="1M" />
-              </div>
-              <h3 className="lp-stat-title">New Connections Every Second</h3>
-              <p className="lp-stat-desc">
-                Millions of new neural connections (synapses) form every single second in the early years, stimulated by communication loops.
-              </p>
-              <div style={{ fontSize: '11px', color: 'var(--lp-text-light)', marginTop: '16px' }}>
-                Source: Centers for Disease Control (CDC) (Evidence Level I)
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 5: PARENTING CHALLENGES */}
-      <section className="lp-section">
+      <ChildJourneySection />
+
+      {/* SECTION 4: THE CHALLENGES */}
+      <section id="chapter-3" className="lp-section">
         <div className="lp-container">
           <div className="lp-section-header">
-            <h2 className="lp-section-title">Parenting Challenges</h2>
+            <h2 className="lp-section-title">Parents face real challenges every day.</h2>
             <p className="lp-section-subtitle">
-              Early parenting is full of complex decisions. Hover over the cards below to see how Neurish translates scientific studies into everyday help.
+              The story of early childhood is not only wonder. It is also the quiet work of figuring out what your child needs next.
             </p>
           </div>
 
           <div className="lp-challenge-grid">
-            {challenges.map((challenge, idx) => (
-              <div key={idx} className="lp-challenge-card">
+            {challengeStories.map((challenge, idx) => (
+              <div key={idx} className="lp-challenge-card lp-challenge-story-card">
                 <div className="lp-challenge-icon">{challenge.icon}</div>
                 <h3>{challenge.topic}</h3>
-                <span className="lp-challenge-prompt">Hover to see concern & help</span>
-                
-                <div className="lp-challenge-expansion">
-                  <div className="lp-concern-box">
-                    <div className="lp-concern-label">Parent Concern</div>
-                    <div className="lp-concern-text">{challenge.concern}</div>
+                <p className="lp-challenge-text">{challenge.concern}</p>
+                <div className="lp-challenge-foot">
+                  <div className="lp-challenge-detail">
+                    <span className="lp-challenge-detail-title">Why it happens</span>
+                    <p>{challenge.reason}</p>
                   </div>
-                  <div className="lp-solution-box">
-                    <div className="lp-solution-label">How Neurish Helps</div>
-                    <div className="lp-solution-text">{challenge.solution}</div>
+                  <div className="lp-challenge-detail">
+                    <span className="lp-challenge-detail-title">How to help</span>
+                    <p>{challenge.solution}</p>
                   </div>
                 </div>
               </div>
@@ -503,69 +467,68 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* SECTION 6: HOW NEURISH WORKS */}
-      <section className="lp-section-alt">
+      {/* SECTION 5: THE SCIENCE */}
+      <section id="chapter-4" className="lp-section-alt">
         <div className="lp-container">
           <div className="lp-section-header">
-            <h2 className="lp-section-title">How Neurish Works</h2>
+            <h2 className="lp-section-title">Most parenting advice is confusing.</h2>
             <p className="lp-section-subtitle">
-              Three steps to aligning your parenting moments with clinical pediatric science.
+              One story says one thing, another says the opposite. Science provides the clarity parents need to feel sure again.
             </p>
           </div>
 
-          <div className="lp-timeline">
-            
-            <div className="lp-timeline-step">
-              <div className="lp-timeline-dot"></div>
-              <div className="lp-timeline-content">
-                <div className="lp-timeline-num">Step 01</div>
-                <h3 className="lp-timeline-title">Create Child Profile</h3>
-                <p className="lp-timeline-desc">
-                  Input your child's age and select specific focus areas (like screen time limits, motor skills, or language development).
-                </p>
+          <div className="lp-grid-3 lp-myth-grid">
+            {confusionBlocks.map((item, idx) => (
+              <div key={idx} className="lp-myth-card lp-myth-card-soft">
+                <div className="lp-myth-side">
+                  <div className="lp-myth-label">
+                    <AlertTriangle size={10} style={{ marginRight: 6 }} /> Common Myth
+                  </div>
+                  <h4 className="lp-myth-title">"{item.myth}"</h4>
+                </div>
+                <div className="lp-science-side">
+                  <div className="lp-science-label">
+                    <Check size={10} style={{ marginRight: 6 }} /> Science Says
+                  </div>
+                  <p className="lp-science-title">{item.science}</p>
+                  <div className="lp-science-foot">
+                    <span>{item.source}</span>
+                    <span>{item.evidenceLevel}</span>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
+          </div>
 
-            <div className="lp-timeline-step">
-              <div className="lp-timeline-dot"></div>
-              <div className="lp-timeline-content">
-                <div className="lp-timeline-num">Step 02</div>
-                <h3 className="lp-timeline-title">Track Development</h3>
-                <p className="lp-timeline-desc">
-                  Check off weekly cognitive and motor milestones directly linked to clinical pediatrics checklists (CDC/WHO).
-                </p>
+          <div className="lp-science-grid lp-science-grid-hero">
+            {researchSources.slice(0, 5).map((source) => (
+              <div key={source.id} className="lp-science-card lp-science-card-compact">
+                <span className="lp-sc-logo-tag">{source.logoText}</span>
+                <h3 className="lp-sc-name">{source.name}</h3>
+                <p className="lp-sc-desc">{source.description}</p>
               </div>
-            </div>
-
-            <div className="lp-timeline-step">
-              <div className="lp-timeline-dot"></div>
-              <div className="lp-timeline-content">
-                <div className="lp-timeline-num">Step 03</div>
-                <h3 className="lp-timeline-title">Receive Personalized Guidance</h3>
-                <p className="lp-timeline-desc">
-                  Get high-impact play activities and evidence-based tips matching your child's precise development pace.
-                </p>
-              </div>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>
 
-      {/* SECTION 7: DEVELOPMENT JOURNEY */}
+      {/* SECTION 6: BRAIN CONNECTIONS SIMULATOR */}
+      <BrainConnectionsSimulator id="chapter-5" />
+
+      {/* SECTION 7: THE POSSIBILITY */}
       <section className="lp-section">
         <div className="lp-container">
           <div className="lp-section-header">
-            <h2 className="lp-section-title">Development Journey Roadmap</h2>
+            <h2 className="lp-section-title">How positive experiences build stronger outcomes</h2>
             <p className="lp-section-subtitle">
-              A child's trajectory from birth to school readiness. Scroll horizontally to explore the milestone roadmap.
+              Each warm response, playful invitation, and curious question becomes the scaffolding of a child’s future self.
             </p>
           </div>
 
-          <div className="lp-roadmap-container">
+          <div className="lp-roadmap-container lp-roadmap-container-outcomes">
             <div className="lp-roadmap-flow">
               {roadmapNodes.map((node, idx) => (
-                <div key={idx} className="lp-roadmap-node">
+                <div key={idx} className="lp-roadmap-node lp-roadmap-node-large">
                   <div className="lp-roadmap-dot-wrapper">
                     <Compass size={32} style={{ color: idx % 2 === 0 ? 'var(--lp-primary)' : 'var(--lp-accent)' }} />
                   </div>
@@ -579,210 +542,63 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* SECTION 8: ACTIVITY PREVIEW */}
-      <section className="lp-section-alt">
+      {/* SECTION 8: NEURISH ENTERS THE STORY */}
+      <section id="chapter-6" className="lp-section-alt lp-section-with-brain">
         <div className="lp-container">
           <div className="lp-section-header">
-            <h2 className="lp-section-title">Explore Science-Backed Activities</h2>
+            <h2 className="lp-section-title">Neurish enters the story when the journey needs direction.</h2>
             <p className="lp-section-subtitle">
-              Preview high-impact co-play activities designed to boost cognitive connections.
+              We are not the beginning—we are the partner that helps parents translate daily care into stronger brain outcomes.
             </p>
           </div>
 
-          <div className="lp-age-tabs" style={{ marginBottom: 40 }}>
-            {['0-1', '1-2', '2-3', '3-5', '5+'].map((age) => (
-              <button 
-                key={age} 
-                className={`lp-age-tab ${activePreviewAge === age ? 'active' : ''}`}
-                onClick={() => setActivePreviewAge(age)}
-              >
-                {age} Years
-              </button>
-            ))}
-          </div>
+          <div className="lp-section-split lp-section-split-reverse">
+            <div className="lp-brain-spotlight lp-brain-spotlight-secondary">
+              <NeuralNetwork stage={0.88} />
+              <div className="lp-brain-spotlight-copy">
+                <strong>The brain now looks alive.</strong> More connections are active. More paths are ready to grow.
+              </div>
+            </div>
 
-          {previewActivity && (
-            <div className="lp-preview-card-wrapper">
-              <div className="lp-preview-left">
-                <div className="lp-preview-meta">
-                  <span className="lp-preview-meta-tag">{previewActivity.category}</span>
-                  <span className="lp-preview-meta-tag amber">{previewActivity.involvement} involvement</span>
-                </div>
-                <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>{previewActivity.title}</h3>
-                <p style={{ fontSize: '15px', color: 'var(--lp-text-secondary)', marginBottom: '24px' }}>
-                  {previewActivity.benefit}
-                </p>
-                
-                <div style={{ fontSize: '13px', borderTop: '1px solid rgba(226, 232, 240, 0.8)', paddingTop: '16px' }}>
-                  <strong>Source Authorization:</strong>
-                  <div style={{ color: 'var(--lp-text-light)', marginTop: '4px', fontStyle: 'italic' }}>
-                    {previewActivity.reference}
-                  </div>
+            <div className="lp-timeline lp-timeline-compact">
+              <div className="lp-timeline-step">
+                <div className="lp-timeline-dot"></div>
+                <div className="lp-timeline-content">
+                  <div className="lp-timeline-num">01</div>
+                  <h3 className="lp-timeline-title">Profile your child</h3>
+                  <p className="lp-timeline-desc">Start with what makes your child unique: age, temperament, and current routines.</p>
                 </div>
               </div>
-
-              <div className="lp-preview-right">
-                <div className="lp-preview-activity-header">
-                  <span className="lp-p-instructions-title">Activity Play Guide</span>
-                  <span className="lp-preview-duration">Est. Duration: {previewActivity.duration}</span>
+              <div className="lp-timeline-step">
+                <div className="lp-timeline-dot"></div>
+                <div className="lp-timeline-content">
+                  <div className="lp-timeline-num">02</div>
+                  <h3 className="lp-timeline-title">See what matters most</h3>
+                  <p className="lp-timeline-desc">Get guidance that focuses on the exact moments and challenges your family is already living.</p>
                 </div>
-                <p className="lp-p-instructions">{previewActivity.instructions}</p>
-                <div style={{ marginTop: '20px', padding: '12px', backgroundColor: 'var(--lp-surface)', borderRadius: '6px', border: '1px solid var(--lp-border)' }}>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--lp-primary)', textTransform: 'uppercase' }}>Setup Items</span>
-                  <p style={{ fontSize: '12px', color: 'var(--lp-text-secondary)', marginTop: '4px' }}>{previewActivity.setup}</p>
+              </div>
+              <div className="lp-timeline-step">
+                <div className="lp-timeline-dot"></div>
+                <div className="lp-timeline-content">
+                  <div className="lp-timeline-num">03</div>
+                  <h3 className="lp-timeline-title">Turn care into confidence</h3>
+                  <p className="lp-timeline-desc">Use structured science-based routines to make every day feel more intentional.</p>
                 </div>
               </div>
             </div>
-          )}
-        </div>
-      </section>
-
-      {/* SECTION 9: SCIENCE & TRUST */}
-      <section className="lp-section">
-        <div className="lp-container">
-          <div className="lp-section-header">
-            <h2 className="lp-section-title">Built On Science. Not Opinions.</h2>
-            <p className="lp-section-subtitle">
-              Neurish does not rely on parenting blogs. We host data compiled from the world's leading academic and clinical pediatric bodies.
-            </p>
           </div>
 
-          <div className="lp-science-grid">
-            {researchSources.slice(0, 6).map((source) => (
-              <div key={source.id} className="lp-science-card">
-                <span className="lp-sc-logo-tag">{source.logoText}</span>
-                <h3 className="lp-sc-name">{source.name}</h3>
-                <span className="lp-sc-category">{source.category}</span>
-                <p className="lp-sc-desc">{source.description}</p>
-                <div className="lp-sc-focus">
-                  <strong>Research Focus Area:</strong>
-                  <span>{source.researchFocus}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 10: PARENTING MYTHS VS SCIENCE (NEW) */}
-      <section className="lp-section-alt">
-        <div className="lp-container">
-          <div className="lp-section-header">
-            <h2 className="lp-section-title">Parenting Myths vs. Science</h2>
-            <p className="lp-section-subtitle">
-              We separate clinical fact from popular parenting opinions to provide clear, actionable rules.
-            </p>
-          </div>
-
-          <div className="lp-grid-3">
-            {myths.map((item, idx) => (
-              <div key={idx} className="lp-myth-card">
-                
-                {/* Myth Side */}
-                <div className="lp-myth-side">
-                  <div className="lp-myth-label">
-                    <AlertTriangle size={10} style={{ marginRight: 4 }} /> Common Myth
-                  </div>
-                  <h4 className="lp-myth-title">"{item.myth}"</h4>
-                </div>
-
-                {/* Science Side */}
-                <div className="lp-science-side">
-                  <div className="lp-science-label">
-                    <Check size={10} style={{ marginRight: 4 }} /> Medical Science
-                  </div>
-                  <p className="lp-science-title">{item.science}</p>
-                  
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 16, borderTop: '1px solid rgba(226, 232, 240, 0.5)', paddingTop: 10 }}>
-                    <span style={{ fontSize: '10px', color: 'var(--lp-text-light)' }}>
-                      Source: <strong>{item.source}</strong>
-                    </span>
-                    <span style={{ fontSize: '9px', fontWeight: 800, color: 'var(--lp-primary)', backgroundColor: 'var(--lp-primary-light)', padding: '2px 6px', borderRadius: '4px' }}>
-                      {item.evidenceLevel}
-                    </span>
-                  </div>
-                </div>
-
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 11: NEURISH VS TRADITIONAL PARENTING */}
-      <section className="lp-section">
-        <div className="lp-container">
-          <div className="lp-section-header">
-            <h2 className="lp-section-title">Why Neurish is Different</h2>
-            <p className="lp-section-subtitle">
-              Traditional parenting advice is scattered and opinion-based. Neurish offers structured, evidence-backed clinical surveillance.
-            </p>
-          </div>
-
-          <div className="lp-comparison-card">
-            <table className="lp-comp-table">
-              <thead>
-                <tr>
-                  <th>Feature</th>
-                  <th>Traditional Advice</th>
-                  <th>Neurish Platform</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="lp-comp-feature">Methodology</td>
-                  <td className="lp-comp-bad">Opinion-based columns, forum blogs, and anecdotes.</td>
-                  <td className="lp-comp-good">
-                    <strong>Evidence-Based</strong>
-                    Directly sourced from CDC and Harvard Center guidelines.
-                  </td>
-                </tr>
-                <tr>
-                  <td className="lp-comp-feature">Personalization</td>
-                  <td className="lp-comp-bad">Generic checklists by age year that ignore individual speed.</td>
-                  <td className="lp-comp-good">
-                    <strong>Age-Specific Guidance</strong>
-                    Personalized to monthly intervals and parent focus concerns.
-                  </td>
-                </tr>
-                <tr>
-                  <td className="lp-comp-feature">Actionability</td>
-                  <td className="lp-comp-bad">Static articles suggesting vague things like "talk to your child".</td>
-                  <td className="lp-comp-good">
-                    <strong>Development Tracking</strong>
-                    Play guide instructions with setup lists and duration tracking.
-                  </td>
-                </tr>
-                <tr>
-                  <td className="lp-comp-feature">Content Updates</td>
-                  <td className="lp-comp-bad">Unstructured suggestions often pushing commercial toys.</td>
-                  <td className="lp-comp-good">
-                    <strong>Personalized Recommendations</strong>
-                    Real-time updates tailored to developmental delay detection indexes.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 12: FINAL CTA */}
-      <section className="lp-section-alt" style={{ borderBottom: 'none' }}>
-        <div className="lp-container">
-          <div className="lp-cta-box">
-            <h2 className="lp-cta-title">Every Child Deserves The Right Start.</h2>
+          <div className="lp-cta-box lp-cta-story">
+            <h2 className="lp-cta-title">The future is not created in adulthood. It begins in childhood.</h2>
             <p className="lp-cta-text">
-              The experiences children have today shape the adults they become tomorrow. Open your child's free profile and align their play with developmental science.
+              Start the story with a platform that helps you see the brain behind every choice and the possibility behind every small moment.
             </p>
-            <button className="lp-btn lp-btn-secondary lp-btn-lg" onClick={() => navigate('/onboarding')}>
-              Create Free Child Profile <ArrowRight size={18} style={{ color: 'var(--lp-primary)' }} />
+            <button className="lp-btn lp-btn-primary lp-btn-lg" onClick={() => navigate('/onboarding')}>
+              Start the first chapter <ArrowRight size={18} />
             </button>
           </div>
         </div>
       </section>
-
-      {/* FOOTER */}
       <footer className="lp-footer">
         <div className="lp-container">
           <div className="lp-footer-grid">

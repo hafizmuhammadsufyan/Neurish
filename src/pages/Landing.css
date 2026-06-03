@@ -1275,6 +1275,436 @@
   opacity: 0.9;
 }
 
+/* --- New Storyflow & Visual Sections --- */
+.lp-hero-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .lp-hero-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lp-hero-right-large {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: flex-end;
+}
+
+.lp-hero-visual-frame {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  border-radius: 32px;
+  background: radial-gradient(circle at top left, rgba(13, 148, 136, 0.18), transparent 45%),
+              radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.14), transparent 38%),
+              linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(250,249,246,0.95) 100%);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: var(--lp-shadow-lg);
+  overflow: hidden;
+}
+
+.lp-hero-frame-copy {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 20px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  padding: 20px 24px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+}
+
+.lp-hero-scroll-tracker {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 28px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.lp-scroll-track-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lp-text-light);
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.lp-scroll-tracker {
+  display: grid;
+  gap: 14px;
+}
+
+.lp-scroll-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--lp-text-secondary);
+  transition: color 0.25s ease;
+}
+
+.lp-scroll-step.active {
+  color: var(--lp-primary);
+  font-weight: 700;
+}
+
+.lp-scroll-step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--lp-border);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.lp-scroll-step.active .lp-scroll-step-dot {
+  background: var(--lp-primary);
+  transform: scale(1.1);
+  box-shadow: 0 0 0 8px rgba(13, 148, 136, 0.12);
+}
+
+.lp-section-with-brain {
+  position: relative;
+  overflow: hidden;
+}
+
+.lp-section-split {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .lp-section-split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.lp-section-split-reverse {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .lp-section-split-reverse {
+    grid-template-columns: 1fr 0.9fr;
+  }
+  .lp-section-split-reverse .lp-brain-spotlight {
+    order: 2;
+  }
+}
+
+.lp-brain-spotlight {
+  background: var(--lp-surface);
+  border: 1px solid var(--lp-border);
+  border-radius: var(--lp-radius-xl);
+  padding: 28px;
+  box-shadow: var(--lp-shadow-md);
+  position: relative;
+  overflow: hidden;
+  min-height: 540px;
+}
+
+.lp-brain-spotlight-secondary {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.lp-brain-spotlight-copy {
+  margin-top: 24px;
+  color: var(--lp-text-secondary);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.lp-stats-grid-2 {
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .lp-stats-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.lp-stat-card-light {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.lp-challenge-story-card {
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lp-challenge-text {
+  color: var(--lp-text-secondary);
+  line-height: 1.7;
+}
+
+.lp-challenge-foot {
+  display: grid;
+  gap: 18px;
+  margin-top: auto;
+}
+
+.lp-challenge-detail {
+  background: rgba(248, 250, 252, 0.84);
+  border-radius: 16px;
+  padding: 18px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.lp-challenge-detail-title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--lp-primary);
+}
+
+.lp-myth-grid {
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .lp-myth-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.lp-science-grid-hero {
+  display: grid;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+@media (min-width: 992px) {
+  .lp-science-grid-hero {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.lp-science-card-compact {
+  padding: 24px;
+}
+
+.lp-science-card-compact .lp-sc-logo-tag {
+  margin-bottom: 16px;
+}
+
+.lp-science-card-compact .lp-sc-name {
+  margin-bottom: 12px;
+}
+
+.lp-science-foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  color: var(--lp-text-light);
+  font-size: 11px;
+}
+
+.lp-roadmap-container-outcomes {
+  padding: 12px 0;
+}
+
+.lp-roadmap-node-large {
+  min-width: 260px;
+  padding: 28px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.lp-roadmap-node-large .lp-roadmap-desc {
+  color: var(--lp-text-secondary);
+}
+
+.lp-timeline-compact {
+  display: grid;
+  gap: 24px;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .lp-timeline-compact {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.lp-cta-story {
+  background: linear-gradient(135deg, #0f766e 0%, #f59e0b 100%);
+  color: white;
+  text-align: center;
+  padding: 60px 36px;
+  border-radius: var(--lp-radius-xl);
+}
+
+.lp-cta-story .lp-cta-text {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.lp-simulator-section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.lp-simulator-grid {
+  display: grid;
+  gap: 32px;
+}
+
+@media (min-width: 992px) {
+  .lp-simulator-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+  }
+}
+
+.lp-simulator-visual {
+  position: relative;
+  min-height: 520px;
+  border-radius: 32px;
+  background: radial-gradient(circle at top left, rgba(13, 148, 136, 0.18), transparent 25%),
+              radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.14), transparent 30%),
+              linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(250, 249, 246, 0.95));
+  box-shadow: var(--lp-shadow-lg);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  overflow: hidden;
+  padding: 28px;
+}
+
+.lp-simulator-brain-shell {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(13, 148, 136, 0.18), transparent 40%),
+              radial-gradient(circle at 30% 70%, rgba(245, 158, 11, 0.12), transparent 35%);
+  pointer-events: none;
+}
+
+.lp-simulator-brain-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 420px;
+  z-index: 1;
+  position: relative;
+}
+
+.lp-simulator-connections line {
+  stroke-width: 2;
+  opacity: 0.35;
+  transition: opacity 0.3s ease;
+}
+
+.lp-simulator-connections.positive line {
+  stroke: rgba(13, 148, 136, 0.9);
+}
+
+.lp-simulator-connections.negative line {
+  stroke: rgba(245, 158, 11, 0.75);
+  opacity: 0.18;
+}
+
+.lp-simulator-nodes circle {
+  fill: white;
+  stroke: rgba(13, 148, 136, 0.9);
+  stroke-width: 3;
+  filter: drop-shadow(0 8px 20px rgba(13, 148, 136, 0.12));
+}
+
+.lp-simulator-highlight {
+  position: absolute;
+  bottom: 28px;
+  left: 28px;
+  right: 28px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 22px;
+  padding: 18px 22px;
+  border: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+.lp-simulator-highlight span {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.lp-simulator-actions {
+  display: grid;
+  gap: 16px;
+}
+
+.lp-simulator-action-card {
+  background: var(--lp-surface);
+  border: 1px solid var(--lp-border);
+  border-radius: 24px;
+  padding: 22px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.lp-simulator-action-card:hover,
+.lp-simulator-action-card.active {
+  transform: translateY(-4px);
+  box-shadow: var(--lp-shadow-lg);
+  border-color: rgba(13, 148, 136, 0.3);
+}
+
+.lp-simulator-action-card.negative:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.simulator-action-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.simulator-action-type {
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lp-primary);
+  margin-bottom: 12px;
+}
+
+.lp-simulator-action-card.negative .simulator-action-type {
+  color: var(--lp-accent-hover);
+}
+
+.lp-simulator-action-card p {
+  color: var(--lp-text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.lp-hero-trust-compact {
+  margin-top: 28px;
+}
+
+.lp-myth-card-soft {
+  background: rgba(255, 255, 255, 0.96);
+}
+
 /* --- Footer --- */
 .lp-footer {
   background-color: var(--lp-text-primary);
