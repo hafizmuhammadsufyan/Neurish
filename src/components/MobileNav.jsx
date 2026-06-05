@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, BookOpen, CheckSquare, Award, User } from 'lucide-react';
+import { LayoutDashboard, BookOpen, CheckSquare, Award, Leaf, Gamepad2 } from 'lucide-react';
 
 export default function MobileNav() {
   return (
@@ -20,25 +20,25 @@ export default function MobileNav() {
         <span>Learn</span>
       </NavLink>
       <NavLink 
+        to="/nutrition" 
+        className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}
+      >
+        <Leaf size={20} />
+        <span>Nutrition</span>
+      </NavLink>
+      <NavLink 
+        to="/games" 
+        className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}
+      >
+        <Gamepad2 size={20} />
+        <span>Games</span>
+      </NavLink>
+      <NavLink 
         to="/tracker" 
         className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}
       >
         <CheckSquare size={20} />
         <span>Tracker</span>
-      </NavLink>
-      <NavLink 
-        to="/activities" 
-        className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}
-      >
-        <Award size={20} />
-        <span>Activities</span>
-      </NavLink>
-      <NavLink 
-        to="/profile" 
-        className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}
-      >
-        <User size={20} />
-        <span>Profile</span>
       </NavLink>
     </div>
   );

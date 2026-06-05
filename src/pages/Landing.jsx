@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   ChevronRight, ArrowRight, Brain, Sparkles, ShieldAlert, HelpCircle,
   Check, AlertTriangle, Activity, Award, BookOpen, Moon, Heart, MessageCircle,
-  Users, Star, Zap, Eye, TrendingUp, Shield
+  Users, Star, Zap, Eye, TrendingUp, Shield, Home, Search, Leaf, Globe2, Clock, FlaskConical, Smartphone
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import NeuralNetwork from '../components/NeuralNetwork';
@@ -153,7 +153,7 @@ export default function Landing() {
 
   const challenges = [
     {
-      topic: 'Tantrums', icon: '🌊', emoji: '😤',
+      topic: 'Tantrums', icon: <ShieldAlert size={18} />, 
       hook: '"Why does my toddler just lose it?"',
       concern: 'My toddler has sudden intense crying fits, hits the floor, and nothing seems to calm them.',
       why: 'The prefrontal cortex — the brain\'s emotional brake — is still physically forming in toddlers.',
@@ -161,7 +161,7 @@ export default function Landing() {
       solution: 'Neurish guides you through co-regulation techniques, emotional labeling games, and calming sensory strategies.'
     },
     {
-      topic: 'Screen Time', icon: '📱', emoji: '😰',
+      topic: 'Screen Time', icon: <Eye size={18} />,
       hook: '"I feel guilty but I need five minutes."',
       concern: 'I feel guilty using screens but need time to complete house chores. What is actually harmful?',
       why: 'Screens replace serve-and-return interactions — the primary driver of early brain connection.',
@@ -169,7 +169,7 @@ export default function Landing() {
       solution: 'We offer age-specific screen-time limits and 5-minute alternative activities that build more in less time.'
     },
     {
-      topic: 'Speech Development', icon: '🗣️', emoji: '😟',
+      topic: 'Speech Development', icon: <MessageCircle size={18} />,
       hook: '"My 18-month-old isn\'t talking yet."',
       concern: 'My toddler makes sounds but does not speak clear words. Friends\' children the same age speak full sentences.',
       why: 'Language development varies widely. But conversational turns — not passive listening — build vocabulary circuits.',
@@ -177,7 +177,7 @@ export default function Landing() {
       solution: 'Our narration guides and serve-and-return exercises add hundreds of extra vocabulary turns per day.'
     },
     {
-      topic: 'Sleep Struggles', icon: '🌙', emoji: '😴',
+      topic: 'Sleep Struggles', icon: <Moon size={18} />,
       hook: '"Bedtime has become a battle."',
       concern: 'Bedtime is a struggle every night and my baby wakes multiple times. We are exhausted.',
       why: 'Inconsistent pre-sleep signals prevent melatonin production. The brain needs rituals to shift into sleep mode.',
@@ -185,7 +185,7 @@ export default function Landing() {
       solution: 'Neurish provides age-calibrated bedtime routine cards backed by pediatric sleep research.'
     },
     {
-      topic: 'Emotional Regulation', icon: '❤️', emoji: '😢',
+      topic: 'Emotional Regulation', icon: <Heart size={18} />,
       hook: '"How do I help when play goes wrong?"',
       concern: 'My child cannot handle losing at games or when something breaks. The frustration becomes intense.',
       why: 'Frustration tolerance is a learned skill. Without modeling, children cannot self-regulate intense negative feelings.',
@@ -193,7 +193,7 @@ export default function Landing() {
       solution: 'We supply sensory calming cards and breathing games validated by pediatric psychology boards.'
     },
     {
-      topic: 'Play vs. Learning', icon: '🎯', emoji: '🤔',
+      topic: 'Play vs. Learning', icon: <Activity size={18} />,
       hook: '"Are we using the right activities?"',
       concern: 'What toys and activities actually support cognitive learning instead of just keeping them busy?',
       why: 'Most toys are designed for entertainment, not for stimulating the specific neural pathways that matter in early development.',
@@ -221,21 +221,21 @@ export default function Landing() {
   ];
 
   const roadmapNodes = [
-    { statement: 'I Feel Safe', desc: 'Secure attachment and consistent emotional presence build the foundation.', emoji: '🏡' },
-    { statement: 'I Express Myself', desc: 'Vocabulary grows when serve-and-return conversations happen daily.', emoji: '💬' },
-    { statement: 'I Learn', desc: 'Play-based exploration activates executive function and spatial reasoning.', emoji: '🔍' },
-    { statement: 'I Explore', desc: 'Curiosity expands as the child is given safe freedom to discover.', emoji: '🌱' },
-    { statement: 'I Build Confidence', desc: 'Small successes compound into a resilient, self-determined mindset.', emoji: '⭐' },
-    { statement: 'I Shape My Future', desc: 'The brain arrives at school ready — curious, connected, and capable.', emoji: '🚀' },
+    { statement: 'I Feel Safe', desc: 'Secure attachment and consistent emotional presence build the foundation.', icon: <Home size={18} /> },
+    { statement: 'I Express Myself', desc: 'Vocabulary grows when serve-and-return conversations happen daily.', icon: <MessageCircle size={18} /> },
+    { statement: 'I Learn', desc: 'Play-based exploration activates executive function and spatial reasoning.', icon: <Search size={18} /> },
+    { statement: 'I Explore', desc: 'Curiosity expands as the child is given safe freedom to discover.', icon: <Leaf size={18} /> },
+    { statement: 'I Build Confidence', desc: 'Small successes compound into a resilient, self-determined mindset.', icon: <Star size={18} /> },
+    { statement: 'I Shape My Future', desc: 'The brain arrives at school ready — curious, connected, and capable.', icon: <Zap size={18} /> },
   ];
 
   const pakistanCards = [
-    { icon: '👨‍👩‍👧‍👦', title: 'Joint Family Dynamics', desc: 'Multiple caregivers is a strength, not a challenge. Neurish helps align grandparents, parents, and extended family around consistent development signals.', tag: 'Cultural Strength', tagType: '' },
-    { icon: '📚', title: 'Academic Pressure Starts Early', desc: '"Rote learning doesn\'t build the brain." Science shows that conceptual play before age 5 creates stronger academic foundations than early drilling.', tag: 'Science Says', tagType: '' },
-    { icon: '📱', title: 'Screen Time Myths', desc: 'Many Pakistani families use mobile videos to keep children calm. Neurish offers 5-minute alternatives that calm AND build — bhook se zyada zaroor hai.', tag: 'Practical Help', tagType: 'amber' },
-    { icon: '🤝', title: 'Modern vs. Traditional Balance', desc: 'You don\'t have to choose between dadi\'s wisdom and pediatric science. Neurish bridges them — finding what\'s universal in good parenting.', tag: 'Both Worlds', tagType: '' },
-    { icon: '🗣️', title: 'Urdu & Bilingual Development', desc: 'Children raised in bilingual households develop stronger cognitive flexibility. Neurish supports mixed-language guidance for Urdu-first families.', tag: 'Bilingual Ready', tagType: 'amber' },
-    { icon: '⏰', title: 'Busy Working Parents', desc: 'Quality over quantity. 10 focused minutes of serve-and-return interaction builds more than 2 hours of passive co-presence. Neurish shows you which 10 minutes matter.', tag: '10-Minute Wins', tagType: '' },
+    { icon: <Users size={20} />, title: 'Joint Family Dynamics', desc: 'Multiple caregivers is a strength, not a challenge. Neurish helps align grandparents, parents, and extended family around consistent development signals.', tag: 'Cultural Strength', tagType: '' },
+    { icon: <BookOpen size={20} />, title: 'Academic Pressure Starts Early', desc: '"Rote learning doesn\'t build the brain." Science shows that conceptual play before age 5 creates stronger academic foundations than early drilling.', tag: 'Science Says', tagType: '' },
+    { icon: <Eye size={20} />, title: 'Screen Time Myths', desc: 'Many Pakistani families use mobile videos to keep children calm. Neurish offers 5-minute alternatives that calm AND build — bhook se zyada zaroor hai.', tag: 'Practical Help', tagType: 'amber' },
+    { icon: <MessageCircle size={20} />, title: 'Modern vs. Traditional Balance', desc: 'You don\'t have to choose between dadi\'s wisdom and pediatric science. Neurish bridges them — finding what\'s universal in good parenting.', tag: 'Both Worlds', tagType: '' },
+    { icon: <MessageCircle size={20} />, title: 'Urdu & Bilingual Development', desc: 'Children raised in bilingual households develop stronger cognitive flexibility. Neurish supports mixed-language guidance for Urdu-first families.', tag: 'Bilingual Ready', tagType: 'amber' },
+    { icon: <Clock size={20} />, title: 'Busy Working Parents', desc: 'Quality over quantity. 10 focused minutes of serve-and-return interaction builds more than 2 hours of passive co-presence. Neurish shows you which 10 minutes matter.', tag: '10-Minute Wins', tagType: '' },
   ];
 
   const trustItems = [
@@ -392,13 +392,13 @@ export default function Landing() {
 
               <div style={{ marginTop: 32 }}>
                 {[
-                  { age: '0–6 months', title: 'Sensory Bonding', desc: 'Vision, hearing, and touch shape the first neural maps. Eye contact and voice recognition begin.', emoji: '👁️' },
-                  { age: '6–18 months', title: 'Language Foundation', desc: 'Babbling becomes words. Pointing emerges. Every response you give creates a language pathway.', emoji: '🗣️' },
-                  { age: '18–36 months', title: 'Emotional Architecture', desc: 'Empathy, frustration tolerance, and social understanding begin forming through mirrored interactions.', emoji: '❤️' },
-                  { age: '3–5 years', title: 'Executive Function', desc: 'Attention, planning, and self-control circuits become trainable through structured play.', emoji: '🧩' },
+                  { age: '0–6 months', title: 'Sensory Bonding', desc: 'Vision, hearing, and touch shape the first neural maps. Eye contact and voice recognition begin.', icon: <Eye size={16} /> },
+                  { age: '6–18 months', title: 'Language Foundation', desc: 'Babbling becomes words. Pointing emerges. Every response you give creates a language pathway.', icon: <MessageCircle size={16} /> },
+                  { age: '18–36 months', title: 'Emotional Architecture', desc: 'Empathy, frustration tolerance, and social understanding begin forming through mirrored interactions.', icon: <Heart size={16} /> },
+                  { age: '3–5 years', title: 'Executive Function', desc: 'Attention, planning, and self-control circuits become trainable through structured play.', icon: <Zap size={16} /> },
                 ].map((item, i) => (
                   <div key={i} className={`lp-highlight-box lp-reveal lp-reveal-d${i + 2}`}>
-                    <div className="lp-highlight-box-label">{item.emoji} {item.age}</div>
+                    <div className="lp-highlight-box-label">{item.icon} {item.age}</div>
                     <div className="lp-highlight-box-text">{item.title} — {item.desc}</div>
                   </div>
                 ))}
@@ -444,19 +444,19 @@ export default function Landing() {
                 </div>
                 <div className="lp-challenge-stages">
                   <div className="lp-challenge-stage">
-                    <div className="lp-stage-label lp-stage-label--concern">😟 Parent Concern</div>
+                    <div className="lp-stage-label lp-stage-label--concern"><AlertTriangle size={14} /> Parent Concern</div>
                     <div className="lp-stage-text">{c.concern}</div>
                   </div>
                   <div className="lp-challenge-stage">
-                    <div className="lp-stage-label lp-stage-label--why">🔎 Why It Happens</div>
+                    <div className="lp-stage-label lp-stage-label--why"><Search size={14} /> Why It Happens</div>
                     <div className="lp-stage-text">{c.why}</div>
                   </div>
                   <div className="lp-challenge-stage">
-                    <div className="lp-stage-label lp-stage-label--science">🔬 What Science Says</div>
+                    <div className="lp-stage-label lp-stage-label--science"><FlaskConical size={14} /> What Science Says</div>
                     <div className="lp-stage-text">{c.science}</div>
                   </div>
                   <div className="lp-challenge-stage">
-                    <div className="lp-stage-label lp-stage-label--solution">✅ How Neurish Helps</div>
+                    <div className="lp-stage-label lp-stage-label--solution"><Check size={14} /> How Neurish Helps</div>
                     <div className="lp-stage-text">{c.solution}</div>
                   </div>
                 </div>
@@ -689,7 +689,7 @@ export default function Landing() {
           <div className="lp-roadmap-track lp-reveal">
             {roadmapNodes.map((node, i) => (
               <div key={i} className="lp-roadmap-node-v2">
-                <div className="lp-roadmap-dot-v2">{node.emoji}</div>
+                <div className="lp-roadmap-dot-v2">{node.icon}</div>
                 <div className="lp-roadmap-statement">"{node.statement}"</div>
                 <p className="lp-roadmap-desc-v2">{node.desc}</p>
               </div>

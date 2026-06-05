@@ -6,7 +6,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut1',
     name: 'Avocado',
-    image: '🥑',
+    image: 'Avocado',
     ageGroup: '0-6 Months',
     ageGroupValue: '0-6',
     brainBenefits: 'Rich in lutein and zeaxanthin, supports neural development and visual system maturation. Monounsaturated fats aid cognitive development.',
@@ -24,7 +24,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut2',
     name: 'Ghee (Clarified Butter)',
-    image: '🥄',
+    image: 'Ghee',
     ageGroup: '0-6 Months',
     ageGroupValue: '0-6',
     brainBenefits: 'Contains butyrate which supports gut-brain axis. Supports myelin formation essential for neural signal transmission.',
@@ -42,7 +42,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut3',
     name: 'Banana',
-    image: '🍌',
+    image: 'Banana',
     ageGroup: '0-6 Months',
     ageGroupValue: '0-6',
     brainBenefits: 'High in vitamin B6, crucial for neurotransmitter synthesis. Supports dopamine production for cognitive development.',
@@ -60,7 +60,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut4',
     name: 'Lentils (Daal)',
-    image: '🫘',
+    image: 'Lentils',
     ageGroup: '6-12 Months',
     ageGroupValue: '6-12',
     brainBenefits: 'High in iron, essential for oxygen transport to the brain. Supports cognitive function and concentration.',
@@ -78,7 +78,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut5',
     name: 'Egg Yolk',
-    image: '🥚',
+    image: 'Egg Yolk',
     ageGroup: '6-12 Months',
     ageGroupValue: '6-12',
     brainBenefits: 'Rich in choline, critical for memory formation and brain structure development. Contains DHA for neural connectivity.',
@@ -96,7 +96,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut6',
     name: 'Spinach (Palak)',
-    image: '🥬',
+    image: 'Spinach',
     ageGroup: '6-12 Months',
     ageGroupValue: '6-12',
     brainBenefits: 'High in vitamin K and folate, supports myelin formation. Antioxidants protect developing neural tissue.',
@@ -114,7 +114,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut7',
     name: 'Yogurt',
-    image: '🍶',
+    image: 'Yogurt',
     ageGroup: '6-12 Months',
     ageGroupValue: '6-12',
     brainBenefits: 'Probiotics support gut-brain axis communication. Supports healthy neurotransmitter production.',
@@ -132,7 +132,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut8',
     name: 'Sweet Potato',
-    image: '🍠',
+    image: 'Sweet Potato',
     ageGroup: '1-2 Years',
     ageGroupValue: '1-2',
     brainBenefits: 'Rich in beta-carotene (Vitamin A), supports visual cortex development. Complex carbs provide steady glucose for brain.',
@@ -150,7 +150,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut9',
     name: 'Almonds (Badam)',
-    image: '🌰',
+    image: 'Almonds',
     ageGroup: '1-2 Years',
     ageGroupValue: '1-2',
     brainBenefits: 'Rich in vitamin E, powerful antioxidant protecting brain cells. Contains arginine for cognitive function.',
@@ -168,7 +168,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut10',
     name: 'Salmon',
-    image: '🐟',
+    image: 'Salmon',
     ageGroup: '1-2 Years',
     ageGroupValue: '1-2',
     brainBenefits: 'Exceptional source of DHA and EPA, essential for brain structure and cognitive development. Supports synaptic plasticity.',
@@ -186,7 +186,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut11',
     name: 'Broccoli (Hara Phool Gobhi)',
-    image: '🥦',
+    image: 'Broccoli',
     ageGroup: '1-2 Years',
     ageGroupValue: '1-2',
     brainBenefits: 'High in choline and sulforaphane, supports memory and neuroprotection. Vitamin K aids myelin formation.',
@@ -204,7 +204,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut12',
     name: 'Blueberries',
-    image: '🫐',
+    image: 'Blueberries',
     ageGroup: '2-3 Years',
     ageGroupValue: '2-3',
     brainBenefits: 'Rich in anthocyanins, powerful antioxidants protecting brain cells from oxidative stress. Improves memory and focus.',
@@ -222,7 +222,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut13',
     name: 'Chickpeas (Chana)',
-    image: '💛',
+    image: 'Chickpeas',
     ageGroup: '2-3 Years',
     ageGroupValue: '2-3',
     brainBenefits: 'High in folate, essential for neural tube development and neurotransmitter synthesis. Supports mood regulation.',
@@ -240,7 +240,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut14',
     name: 'Oats',
-    image: '🌾',
+    image: 'Oats',
     ageGroup: '2-3 Years',
     ageGroupValue: '2-3',
     brainBenefits: 'Beta-glucans support healthy cholesterol for optimal brain function. Sustained glucose release improves focus.',
@@ -258,7 +258,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut15',
     name: 'Pomegranate',
-    image: '🍇',
+    image: 'Pomegranate',
     ageGroup: '3-5 Years',
     ageGroupValue: '3-5',
     brainBenefits: 'High in polyphenols, supports brain blood flow and neuroprotection. Improves attention span.',
@@ -276,7 +276,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut16',
     name: 'Beetroot (Chukandar)',
-    image: '💜',
+    image: 'Beetroot',
     ageGroup: '3-5 Years',
     ageGroupValue: '3-5',
     brainBenefits: 'Nitrates improve blood flow to the brain, enhancing oxygen delivery. Supports executive function and memory.',
@@ -294,7 +294,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut17',
     name: 'Peanut Butter',
-    image: '🥜',
+    image: 'Peanut Butter',
     ageGroup: '3-5 Years',
     ageGroupValue: '3-5',
     brainBenefits: 'High in vitamin E and resveratrol, supports brain cell protection. Arginine improves cognitive function.',
@@ -312,7 +312,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut18',
     name: 'Whole Grain Bread',
-    image: '🍞',
+    image: 'Whole Grain Bread',
     ageGroup: '3-5 Years',
     ageGroupValue: '3-5',
     brainBenefits: 'B vitamins support neurotransmitter production. Sustained glucose release improves concentration.',
@@ -330,7 +330,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut19',
     name: 'Carrots',
-    image: '🥕',
+    image: 'Carrots',
     ageGroup: '5+ Years',
     ageGroupValue: '5+',
     brainBenefits: 'Beta-carotene converts to vitamin A, crucial for visual cortex development. Supports attention.',
@@ -348,7 +348,7 @@ const NUTRITION_DATA = [
   {
     id: 'nut20',
     name: 'Milk & Paneer (Cottage Cheese)',
-    image: '🥛',
+    image: 'Milk & Paneer',
     ageGroup: '5+ Years',
     ageGroupValue: '5+',
     brainBenefits: 'Excellent source of calcium essential for neurotransmitter release. Supports nerve signal transmission.',

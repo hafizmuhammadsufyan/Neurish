@@ -13,6 +13,8 @@ import Tracker from '../pages/Tracker';
 import Activities from '../pages/Activities';
 import Profile from '../pages/Profile';
 import ResearchCenter from '../pages/ResearchCenter';
+import Nutrition from '../pages/Nutrition';
+import Games from '../pages/Games';
 
 /**
  * Layout wrapper for in-app views requiring Sidebar and Mobile Navigation.
@@ -44,6 +46,8 @@ export default function AppRoutes() {
         <Route path="/learn" element={<Learn />} />
         <Route path="/tracker" element={<Tracker />} />
         <Route path="/activities" element={<Activities />} />
+        <Route path="/nutrition" element={<Nutrition />} />
+        <Route path="/games" element={<Games />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/research" element={<ResearchCenter />} />
       </Route>

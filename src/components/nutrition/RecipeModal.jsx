@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Clock, AlertCircle, Book, Lightbulb } from 'lucide-react';
+import { X, Clock, AlertCircle, Book, Lightbulb, Leaf, ShieldCheck } from 'lucide-react';
 
 export default function RecipeModal({ nutrition, onClose }) {
   if (!nutrition) return null;
@@ -14,7 +14,16 @@ export default function RecipeModal({ nutrition, onClose }) {
 
         {/* Header with Image and Title */}
         <div style={{ marginBottom: 24, display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{ fontSize: 56 }}>{nutrition.image}</div>
+          <div style={{
+            width: 72,
+            height: 72,
+            display: 'grid',
+            placeItems: 'center',
+            borderRadius: '18px',
+            backgroundColor: 'var(--primary-light)'
+          }}>
+            <Leaf size={32} color="var(--primary)" />
+          </div>
           <div>
             <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)', margin: 0 }}>
               {nutrition.name}
@@ -65,7 +74,7 @@ export default function RecipeModal({ nutrition, onClose }) {
         {/* Body Benefits */}
         <div style={{ marginBottom: 20 }}>
           <h4 className="text-sm font-bold text-primary-color" style={{ marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 16 }}>💪</span> Physical Development Benefits
+            <ShieldCheck size={16} /> Physical Development Benefits
           </h4>
           <p className="text-sm text-secondary-color" style={{ lineHeight: 1.6, margin: 0 }}>
             {nutrition.bodyBenefits}

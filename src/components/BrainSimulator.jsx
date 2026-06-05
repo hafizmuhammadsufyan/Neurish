@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
+import { BookOpen, MessageCircle, Target, HeartPulse, Moon, Type, Smartphone, Slash, FlaskConical, ShieldAlert, Search } from 'lucide-react';
 
 // ─── Brain Node Positions (in 440×370 SVG viewBox) ───────────────────────────
 const NODES = [
@@ -35,14 +36,14 @@ const CONNECTIONS = [
 
 // ─── Action Definitions ───────────────────────────────────────────────────────
 const ACTIONS = [
-  { id: 'reading',   label: 'Reading Together',          type: 'positive', icon: '📖', desc: 'Activates language & memory networks', nodes: [7,8,9,15,16,20,21,22,29,30] },
-  { id: 'talk',      label: 'Responsive Communication',  type: 'positive', icon: '💬', desc: 'Strengthens frontal lobe connectivity', nodes: [0,1,2,3,4,10,11,9,8] },
-  { id: 'play',      label: 'Play-Based Learning',       type: 'positive', icon: '🎯', desc: 'Builds executive function pathways',   nodes: [5,6,13,14,17,18,23,24] },
-  { id: 'emotional', label: 'Emotional Support',         type: 'positive', icon: '❤️', desc: 'Develops emotional regulation centers', nodes: [12,19,35,36,37,38,18,13] },
-  { id: 'sleep',     label: 'Healthy Sleep',             type: 'positive', icon: '🌙', desc: 'Consolidates memory during deep sleep',  nodes: [26,27,28,29,30,31,32,33] },
-  { id: 'language',  label: 'Language Interaction',      type: 'positive', icon: '🗣️', desc: 'Expands vocabulary neural pathways',     nodes: [15,16,17,20,21,22,29,30] },
-  { id: 'screens',   label: 'Excessive Screen Time',     type: 'negative', icon: '📱', desc: 'Reduces serve-and-return interactions',  nodes: [7,8,16,17,22,23,31,15] },
-  { id: 'isolation', label: 'Lack of Interaction',       type: 'negative', icon: '🚫', desc: 'Weakens social and language connections', nodes: [0,1,3,15,20,26,27,29] },
+  { id: 'reading',   label: 'Reading Together',          type: 'positive', icon: <BookOpen size={16} />, desc: 'Activates language & memory networks', nodes: [7,8,9,15,16,20,21,22,29,30] },
+  { id: 'talk',      label: 'Responsive Communication',  type: 'positive', icon: <MessageCircle size={16} />, desc: 'Strengthens frontal lobe connectivity', nodes: [0,1,2,3,4,10,11,9,8] },
+  { id: 'play',      label: 'Play-Based Learning',       type: 'positive', icon: <Target size={16} />, desc: 'Builds executive function pathways',   nodes: [5,6,13,14,17,18,23,24] },
+  { id: 'emotional', label: 'Emotional Support',         type: 'positive', icon: <HeartPulse size={16} />, desc: 'Develops emotional regulation centers', nodes: [12,19,35,36,37,38,18,13] },
+  { id: 'sleep',     label: 'Healthy Sleep',             type: 'positive', icon: <Moon size={16} />, desc: 'Consolidates memory during deep sleep',  nodes: [26,27,28,29,30,31,32,33] },
+  { id: 'language',  label: 'Language Interaction',      type: 'positive', icon: <Type size={16} />, desc: 'Expands vocabulary neural pathways',     nodes: [15,16,17,20,21,22,29,30] },
+  { id: 'screens',   label: 'Excessive Screen Time',     type: 'negative', icon: <Smartphone size={16} />, desc: 'Reduces serve-and-return interactions',  nodes: [7,8,16,17,22,23,31,15] },
+  { id: 'isolation', label: 'Lack of Interaction',       type: 'negative', icon: <Slash size={16} />, desc: 'Weakens social and language connections', nodes: [0,1,3,15,20,26,27,29] },
 ];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -290,7 +291,7 @@ export default function BrainSimulator() {
 
           {/* Science badge */}
           <div className="bsim-science-note">
-            <div className="bsim-science-note-icon">🔬</div>
+            <div className="bsim-science-note-icon"><FlaskConical size={18} /></div>
             <p>Backed by Harvard Center on the Developing Child &amp; CDC research</p>
           </div>
         </div>

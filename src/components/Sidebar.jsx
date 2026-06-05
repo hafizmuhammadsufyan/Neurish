@@ -6,7 +6,9 @@ import {
   CheckSquare, 
   Award, 
   User, 
-  FileText
+  FileText,
+  Leaf,
+  Gamepad2
 } from 'lucide-react';
 import ChildSelector from './ChildSelector';
 
@@ -17,6 +19,8 @@ export default function Sidebar() {
     { name: 'Learn Hub', icon: BookOpen, path: '/learn' },
     { name: 'Tracker', icon: CheckSquare, path: '/tracker' },
     { name: 'Activities', icon: Award, path: '/activities' },
+    { name: 'Nutrition', icon: Leaf, path: '/nutrition' },
+    { name: 'Games', icon: Gamepad2, path: '/games' },
     { name: 'Research Center', icon: FileText, path: '/research' },
     { name: 'Profile Settings', icon: User, path: '/profile' }
   ];
