@@ -15,6 +15,9 @@ import Profile from '../pages/Profile';
 import ResearchCenter from '../pages/ResearchCenter';
 import Nutrition from '../pages/Nutrition';
 import Games from '../pages/Games';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 /**
  * Layout wrapper for in-app views requiring Sidebar and Mobile Navigation.
@@ -41,7 +44,7 @@ export default function AppRoutes() {
       <Route path="/contact" element={<Contact />} />
 
       {/* Authenticated Pages (Wrapped in App Shell Layout) */}
-      <Route element={<AppLayout />}>
+      <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/learn" element={<Learn />} />
         <Route path="/tracker" element={<Tracker />} />
@@ -51,6 +54,10 @@ export default function AppRoutes() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/research" element={<ResearchCenter />} />
       </Route>
+
+      {/* Auth pages */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       {/* Fallback Route */}
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { AppContextProvider } from './context/AppContext';
+import { AuthProvider } from './context/AuthContext';
 import AppRoutes from './routes/AppRoutes';
 
 /**
@@ -11,8 +12,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <AppContextProvider>
-        <AppRoutes />
-      </AppContextProvider>
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
+        </AppContextProvider>
     </BrowserRouter>
   );
 }
